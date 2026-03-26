@@ -381,6 +381,24 @@ transition:all .3s ease;
 box-shadow:0 4px 20px rgba(0,0,0,.4);
 }
 
+/* PRESENTATION */
+.presentation{background:var(--darker)}
+.pres-wrapper{
+position:relative;
+width:100%;
+padding-bottom:58.5%;
+border-radius:14px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(245,166,35,.05);
+}
+.pres-wrapper iframe{
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+border:0;
+}
+
 /* APPLICATIONS */
 .applications{background:var(--dark)}
 .app-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
@@ -666,7 +684,7 @@ margin-bottom:2rem;
 <h1>Inteligencia<br><span>Artificial</span></h1>
 <p class="subtitle">Introducción a la Generación de Imagen y Video con IA &mdash; Clase 2: Fundamentos de la IA Generativa</p>
 <div class="hero-cta">
-<a href="#herramientas-etapas" class="btn btn-primary"><i class="fa-solid fa-play"></i> Ver Herramientas</a>
+<a href="#presentacion" class="btn btn-primary"><i class="fa-solid fa-play"></i> Ver Presentación</a>
 <a href="#hoja-de-ruta" class="btn btn-outline"><i class="fa-solid fa-map"></i> Hoja de Ruta</a>
 </div>
 </div>
@@ -1138,6 +1156,18 @@ margin-bottom:2rem;
 <a href="https://x.com/cfryant/status/2034050997744525729" target="_blank" class="resource-link"><i class="fa-brands fa-x-twitter"></i> <span>@cfryant &mdash; Referencia visual</span></a>
 <a href="https://x.com/javilopen/status/2035043102625309101" target="_blank" class="resource-link"><i class="fa-brands fa-x-twitter"></i> <span>@javilopen &mdash; Referencia técnica</span></a>
 <a href="https://x.com/AmirMushich/status/2019073081881293302" target="_blank" class="resource-link"><i class="fa-brands fa-x-twitter"></i> <span>@AmirMushich &mdash; Meigen AI demo</span></a>
+</div>
+</div>
+</section>
+
+<!-- PRESENTACIÓN -->
+<section class="presentation" id="presentacion">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-desktop"></i> Slides</div>
+<h2 class="section-title">Presentación Completa</h2>
+<p class="section-subtitle">Navegá las diapositivas de la Clase 2 directamente desde acá.</p>
+<div class="pres-wrapper">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSUZtkcsuy9dQS6A9rvB6gSyutCjpVu-onEW-bT0Er8pt7uK465wG2JnBqg8xP_nOEf6_h8_RhNH9rf/pubembed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 </div>
 </div>
 </section>
