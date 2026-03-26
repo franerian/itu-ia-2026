@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITU 2026 - Inteligencia Artificial: Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--orange:#F5A623;
+--orange-dark:#E09000;
+--orange-light:#FFD080;
+--dark:#1a1a1a;
+--darker:#111;
+--gray:#2a2a2a;
+--gray-light:#888;
+--white:#fff;
+--text:#e0e0e0;
+--font-main:'Inter',sans-serif;
+--font-title:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+font-family:var(--font-main);
+background:var(--darker);
+color:var(--text);
+line-height:1.6;
+width:100%;
+overflow-x:hidden;
+}
+/* HERO */
+.hero{
+position:relative;
+width:100%;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 50%,#1a1a1a 100%);
+}
+.hero::before{
+content:'';
+position:absolute;
+inset:0;
+background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23222" width="100" height="100"/><circle fill="%23282828" cx="50" cy="50" r="40"/></svg>') repeat;
+background-size:100px;
+opacity:.3;
+}
+.hero::after{
+content:'';
+position:absolute;
+top:-50%;left:-50%;
+width:200%;height:200%;
+background:radial-gradient(ellipse at 70% 50%,rgba(245,166,35,.12) 0%,transparent 60%);
+pointer-events:none;
+}
+.hero-content{
+position:relative;z-index:2;
+width:100%;max-width:1200px;
+padding:2rem;
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+gap:3rem;
+}
+.hero-text{flex:1;min-width:320px}
+.hero-badge{
+display:inline-flex;align-items:center;gap:.5rem;
+background:rgba(245,166,35,.15);
+border:1px solid rgba(245,166,35,.3);
+border-radius:50px;
+padding:.4rem 1rem;
+font-size:.8rem;
+color:var(--orange);
+font-weight:600;
+text-transform:uppercase;
+letter-spacing:2px;
+margin-bottom:1.5rem;
+}
+.hero-text h1{
+font-family:var(--font-title);
+font-size:clamp(2.5rem,6vw,4.5rem);
+font-weight:900;
+color:var(--white);
+line-height:1.05;
+margin-bottom:.5rem;
+}
+.hero-text h1 span{
+background:linear-gradient(135deg,var(--orange),var(--orange-light));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+}
+.hero-text .subtitle{
+font-size:clamp(1rem,2.5vw,1.4rem);
+color:var(--gray-light);
+margin-bottom:2rem;
+font-weight:300;
+max-width:560px;
+}
+.hero-visual{
+flex:1;min-width:300px;
+display:flex;justify-content:center;align-items:center;
+}
+.hero-icon-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:1.2rem;
+max-width:340px;
+}
+.hero-icon-card{
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+border-radius:16px;
+padding:1.8rem 1.2rem;
+text-align:center;
+transition:all .3s ease;
+}
+.hero-icon-card:hover{border-color:rgba(245,166,35,.3);transform:translateY(-4px)}
+.hero-icon-card i{font-size:2rem;color:var(--orange);margin-bottom:.6rem;display:block}
+.hero-icon-card span{font-size:.8rem;color:var(--gray-light);font-weight:500}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+display:inline-flex;align-items:center;gap:.5rem;
+padding:.9rem 2rem;
+border-radius:50px;
+font-weight:600;
+font-size:.95rem;
+text-decoration:none;
+transition:all .3s ease;
+cursor:pointer;border:none;
+}
+.btn-primary{
+background:linear-gradient(135deg,var(--orange),var(--orange-dark));
+color:var(--dark);
+box-shadow:0 4px 20px rgba(245,166,35,.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(245,166,35,.5)}
+.btn-outline{
+background:transparent;
+border:2px solid rgba(255,255,255,.2);
+color:var(--white);
+}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+
+/* SECTIONS */
+section{width:100%;padding:5rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-tag{
+display:inline-flex;align-items:center;gap:.5rem;
+background:rgba(245,166,35,.1);
+border:1px solid rgba(245,166,35,.2);
+border-radius:50px;
+padding:.3rem .9rem;
+font-size:.75rem;
+color:var(--orange);
+font-weight:600;
+text-transform:uppercase;
+letter-spacing:2px;
+margin-bottom:1rem;
+}
+.section-title{
+font-family:var(--font-title);
+font-size:clamp(1.8rem,4vw,2.8rem);
+font-weight:800;
+color:var(--white);
+margin-bottom:1rem;
+}
+.section-subtitle{color:var(--gray-light);max-width:700px;margin-bottom:3rem;font-size:1.05rem}
+
+/* ROADMAP */
+.roadmap{background:var(--dark)}
+.roadmap-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.roadmap-col h3{
+font-family:var(--font-title);
+font-size:1.3rem;color:var(--orange);
+margin-bottom:1.2rem;font-weight:700;
+}
+.roadmap-item{
+display:flex;align-items:flex-start;gap:1rem;
+padding:1rem;
+background:rgba(255,255,255,.03);
+border-radius:10px;
+border:1px solid rgba(255,255,255,.05);
+margin-bottom:.8rem;
+transition:border-color .3s;
+}
+.roadmap-item:hover{border-color:rgba(245,166,35,.3)}
+.roadmap-num{
+min-width:36px;height:36px;
+display:flex;align-items:center;justify-content:center;
+background:rgba(245,166,35,.15);
+color:var(--orange);
+font-weight:700;font-size:.85rem;
+border-radius:8px;
+}
+.roadmap-item p{font-size:.95rem;color:var(--text)}
+
+/* KEY CONCEPTS */
+.concepts{background:var(--darker)}
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem}
+.concept-card{
+background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+border:1px solid rgba(255,255,255,.06);
+border-radius:16px;
+padding:2rem;
+transition:all .3s ease;
+}
+.concept-card:hover{
+transform:translateY(-4px);
+border-color:rgba(245,166,35,.2);
+box-shadow:0 10px 40px rgba(0,0,0,.3);
+}
+.concept-icon{
+width:50px;height:50px;
+display:flex;align-items:center;justify-content:center;
+background:rgba(245,166,35,.12);
+border-radius:12px;
+color:var(--orange);
+font-size:1.3rem;
+margin-bottom:1.2rem;
+}
+.concept-card h3{
+font-family:var(--font-title);
+color:var(--white);font-size:1.2rem;
+margin-bottom:.8rem;font-weight:700;
+}
+.concept-card p{color:var(--gray-light);font-size:.93rem;line-height:1.7}
+
+/* FRAMEWORK */
+.framework{background:var(--dark)}
+.framework-steps{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:1.5rem;
+}
+.framework-step{
+text-align:center;
+padding:2rem 1.2rem;
+background:rgba(255,255,255,.02);
+border:1px solid rgba(255,255,255,.05);
+border-radius:14px;
+position:relative;
+transition:all .3s;
+}
+.framework-step:hover{border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.04)}
+.framework-step .step-num{
+font-family:var(--font-title);
+font-size:2.5rem;font-weight:800;
+background:linear-gradient(135deg,var(--orange),var(--orange-light));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+background-clip:text;
+}
+.framework-step h4{color:var(--white);margin:.6rem 0 .4rem;font-weight:600;font-size:1rem}
+.framework-step p{color:var(--gray-light);font-size:.85rem;line-height:1.5}
+
+/* DYNAMICS */
+.dynamics{background:var(--darker)}
+.dynamics-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.dynamic-block{
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+padding:2rem;
+}
+.dynamic-block h3{
+font-family:var(--font-title);
+color:var(--orange);font-size:1.2rem;
+margin-bottom:1.2rem;font-weight:700;
+display:flex;align-items:center;gap:.6rem;
+}
+.dynamic-item{
+display:flex;align-items:center;gap:.8rem;
+padding:.6rem 0;
+border-bottom:1px solid rgba(255,255,255,.04);
+font-size:.9rem;
+}
+.dynamic-item:last-child{border-bottom:none}
+.dynamic-item i{color:var(--orange);font-size:.8rem;min-width:16px}
+
+/* GAME MODE / COMPARISON CARDS */
+.gamemode{background:var(--dark)}
+.gamemode-cards{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.gamemode-card{
+padding:2.5rem;
+border-radius:16px;
+border:1px solid rgba(255,255,255,.06);
+transition:all .3s;
+}
+.gamemode-card.historia{background:linear-gradient(145deg,rgba(245,166,35,.08),rgba(245,166,35,.02))}
+.gamemode-card.arcade{background:linear-gradient(145deg,rgba(100,200,255,.08),rgba(100,200,255,.02))}
+.gamemode-card:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.gamemode-card .mode-icon{font-size:2.5rem;margin-bottom:1rem}
+.gamemode-card h3{font-family:var(--font-title);color:var(--white);font-size:1.4rem;margin-bottom:.8rem}
+.gamemode-card p{color:var(--gray-light);font-size:.95rem;line-height:1.7}
+
+/* PLATFORMS */
+.platforms{background:var(--darker)}
+.platform-section{margin-bottom:2.5rem}
+.platform-section h3{
+font-family:var(--font-title);
+color:var(--white);font-size:1.2rem;
+margin-bottom:1rem;font-weight:700;
+display:flex;align-items:center;gap:.6rem;
+}
+.platform-section h3 .badge{
+background:rgba(245,166,35,.15);
+color:var(--orange);
+padding:.2rem .7rem;
+border-radius:20px;
+font-size:.7rem;
+font-weight:600;
+text-transform:uppercase;
+}
+.platform-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+gap:1rem;
+}
+.platform-link{
+display:flex;align-items:center;gap:.8rem;
+padding:1rem 1.2rem;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:10px;
+text-decoration:none;
+color:var(--text);
+transition:all .3s;
+font-size:.9rem;
+}
+.platform-link:hover{
+border-color:rgba(245,166,35,.3);
+background:rgba(245,166,35,.05);
+color:var(--white);
+}
+.platform-link i{color:var(--orange);font-size:1.1rem;min-width:20px;text-align:center}
+
+/* VIDEOS */
+.videos{background:var(--dark)}
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.video-wrapper{
+position:relative;
+width:100%;
+padding-bottom:56.25%;
+border-radius:14px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.video-wrapper iframe{
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+border:0;
+}
+.video-label{
+margin-top:.8rem;
+font-size:.85rem;
+color:var(--gray-light);
+font-weight:500;
+}
+.video-thumb-link{text-decoration:none;display:block}
+.video-thumb-link:hover .video-play-overlay{background:rgba(245,166,35,.9);transform:translate(-50%,-50%) scale(1.1)}
+.video-play-overlay{
+position:absolute;
+top:50%;left:50%;
+transform:translate(-50%,-50%);
+width:70px;height:70px;
+background:rgba(245,166,35,.8);
+border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+color:var(--dark);
+font-size:1.5rem;
+z-index:2;
+transition:all .3s ease;
+box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+
+/* APPLICATIONS */
+.applications{background:var(--dark)}
+.app-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.app-card{
+padding:2rem;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+transition:all .3s;
+text-align:center;
+}
+.app-card:hover{border-color:rgba(245,166,35,.2);transform:translateY(-3px)}
+.app-card .app-icon{
+font-size:2rem;color:var(--orange);margin-bottom:1rem;
+}
+.app-card h3{font-family:var(--font-title);color:var(--white);font-size:1.1rem;margin-bottom:.6rem}
+.app-card p{color:var(--gray-light);font-size:.88rem;line-height:1.6}
+
+/* EXERCISE */
+.exercise{
+background:linear-gradient(135deg,rgba(245,166,35,.08),rgba(245,166,35,.02));
+border-top:1px solid rgba(245,166,35,.15);
+border-bottom:1px solid rgba(245,166,35,.15);
+}
+.exercise-content{max-width:800px}
+.exercise-vars{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:1.2rem;margin-top:2rem;
+}
+.exercise-var{
+padding:1.2rem;
+background:rgba(0,0,0,.2);
+border-radius:10px;
+border:1px solid rgba(245,166,35,.15);
+}
+.exercise-var strong{color:var(--orange);font-size:.85rem;display:block;margin-bottom:.4rem}
+.exercise-var span{color:var(--text);font-size:.88rem}
+
+/* RESOURCES */
+.resources{background:var(--darker)}
+.resource-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:1.2rem;
+}
+.resource-link{
+display:flex;align-items:center;gap:1rem;
+padding:1.2rem 1.5rem;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:12px;
+text-decoration:none;
+color:var(--text);
+transition:all .3s;
+}
+.resource-link:hover{border-color:rgba(245,166,35,.3);color:var(--white);background:rgba(245,166,35,.05)}
+.resource-link i{color:var(--orange);font-size:1.2rem;min-width:24px;text-align:center}
+.resource-link span{font-size:.9rem}
+
+/* CLOSING */
+.closing{
+background:linear-gradient(135deg,var(--dark),var(--darker));
+text-align:center;
+}
+.closing-grid{
+display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+text-align:left;margin-top:2rem;max-width:900px;margin-left:auto;margin-right:auto;
+}
+.closing-block{
+padding:2rem;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+}
+.closing-block h3{
+font-family:var(--font-title);
+color:var(--orange);font-size:1.1rem;
+margin-bottom:1rem;
+display:flex;align-items:center;gap:.5rem;
+}
+.closing-block ul{list-style:none;padding:0}
+.closing-block li{
+padding:.4rem 0;
+font-size:.9rem;
+color:var(--text);
+display:flex;align-items:flex-start;gap:.5rem;
+}
+.closing-block li::before{
+content:'\2192';color:var(--orange);font-weight:700;
+}
+
+/* FOOTER */
+.footer{
+background:var(--darker);
+border-top:1px solid rgba(255,255,255,.06);
+padding:2rem;
+text-align:center;
+}
+.footer p{color:var(--gray-light);font-size:.8rem}
+.footer a{color:var(--orange);text-decoration:none}
+
+/* QUOTE */
+.quote-block{
+background:rgba(245,166,35,.05);
+border-left:4px solid var(--orange);
+border-radius:0 12px 12px 0;
+padding:1.5rem 2rem;
+margin:2rem 0;
+font-style:italic;
+color:var(--text);
+font-size:.95rem;
+line-height:1.8;
+}
+.quote-block .quote-source{
+font-style:normal;
+font-size:.8rem;
+color:var(--orange);
+margin-top:.8rem;
+display:block;
+}
+
+/* COMPARISON TABLE */
+.comparison-table{
+width:100%;
+border-collapse:separate;
+border-spacing:0;
+border-radius:14px;
+overflow:hidden;
+margin-top:2rem;
+}
+.comparison-table th{
+background:rgba(245,166,35,.15);
+color:var(--orange);
+font-family:var(--font-title);
+font-weight:700;
+font-size:.9rem;
+padding:1rem 1.2rem;
+text-align:left;
+}
+.comparison-table td{
+padding:1rem 1.2rem;
+font-size:.88rem;
+color:var(--text);
+border-bottom:1px solid rgba(255,255,255,.05);
+background:rgba(255,255,255,.02);
+}
+.comparison-table tr:last-child td{border-bottom:none}
+.comparison-table td:first-child{
+color:var(--white);
+font-weight:600;
+}
+
+/* PIPELINE */
+.pipeline-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:1.5rem;
+}
+.pipeline-card{
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+padding:1.8rem;
+transition:all .3s;
+position:relative;
+overflow:hidden;
+}
+.pipeline-card::before{
+content:attr(data-step);
+position:absolute;
+top:.8rem;right:1rem;
+font-family:var(--font-title);
+font-size:3rem;
+font-weight:900;
+color:rgba(245,166,35,.08);
+line-height:1;
+}
+.pipeline-card:hover{border-color:rgba(245,166,35,.3);transform:translateY(-3px)}
+.pipeline-card h4{
+font-family:var(--font-title);
+color:var(--orange);
+font-size:1.1rem;
+margin-bottom:.5rem;
+}
+.pipeline-card .pipeline-desc{
+font-size:.82rem;
+color:var(--gray-light);
+margin-bottom:.8rem;
+}
+.pipeline-card .pipeline-tools{
+font-size:.85rem;
+color:var(--text);
+font-weight:500;
+}
+
+/* JSON CODE BLOCK */
+.code-block{
+background:rgba(0,0,0,.4);
+border:1px solid rgba(255,255,255,.08);
+border-radius:12px;
+padding:1.5rem;
+margin-top:2rem;
+overflow-x:auto;
+font-family:'Courier New',monospace;
+font-size:.78rem;
+line-height:1.6;
+color:var(--text);
+max-height:400px;
+overflow-y:auto;
+}
+.code-block .key{color:var(--orange)}
+.code-block .str{color:#7ec8e3}
+.code-block .num{color:#f0a}
+
+/* STRUCTURE CARDS */
+.structure-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:1.5rem;
+margin-top:2rem;
+}
+.structure-card{
+padding:1.8rem;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+transition:all .3s;
+}
+.structure-card:hover{border-color:rgba(245,166,35,.3)}
+.structure-card h4{
+font-family:var(--font-title);
+color:var(--orange);
+font-size:1rem;
+margin-bottom:.6rem;
+display:flex;align-items:center;gap:.5rem;
+}
+.structure-card p{color:var(--gray-light);font-size:.88rem;line-height:1.6}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.roadmap-grid,.dynamics-grid,.gamemode-cards,.video-grid,.closing-grid,.app-grid,.structure-grid{
+grid-template-columns:1fr;
+}
+.hero-content{flex-direction:column;text-align:center}
+.hero-cta{justify-content:center}
+.framework-steps{grid-template-columns:1fr 1fr}
+.pipeline-grid{grid-template-columns:1fr}
+.comparison-table{font-size:.8rem}
+.comparison-table th,.comparison-table td{padding:.7rem .8rem}
+}
+@media(max-width:480px){
+.framework-steps{grid-template-columns:1fr}
+section{padding:3rem 1rem}
+.hero-icon-grid{grid-template-columns:1fr 1fr;gap:.8rem;max-width:280px}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.animate{animation:fadeUp .6s ease forwards;opacity:0}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--darker)}
+::-webkit-scrollbar-thumb{background:var(--gray);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gray-light)}
+
+/* Dividers */
+.divider{
+width:60px;height:3px;
+background:linear-gradient(90deg,var(--orange),transparent);
+border-radius:3px;
+margin-bottom:2rem;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+<div class="hero-text">
+<div class="hero-badge"><i class="fa-solid fa-microchip"></i> ITU &middot; UNCuyo &middot; 2026</div>
+<h1>Inteligencia<br><span>Artificial</span></h1>
+<p class="subtitle">Introducción a la Generación de Imagen y Video con IA &mdash; Clase 2: Fundamentos de la IA Generativa</p>
+<div class="hero-cta">
+<a href="#herramientas-etapas" class="btn btn-primary"><i class="fa-solid fa-play"></i> Ver Herramientas</a>
+<a href="#hoja-de-ruta" class="btn btn-outline"><i class="fa-solid fa-map"></i> Hoja de Ruta</a>
+</div>
+</div>
+<div class="hero-visual">
+<div class="hero-icon-grid">
+<div class="hero-icon-card"><i class="fa-solid fa-image"></i><span>Imagen</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-film"></i><span>Video</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-microphone"></i><span>Audio</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Prompting</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- HOJA DE RUTA -->
+<section class="roadmap" id="hoja-de-ruta">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-route"></i> Programa</div>
+<h2 class="section-title">Hoja de Ruta &mdash; Clase 2</h2>
+<p class="section-subtitle">Productividad, análisis visual e implementación: del problema a la solución generada.</p>
+<div class="roadmap-grid">
+<div class="roadmap-col">
+<h3><i class="fa-solid fa-1"></i> Primera Hora</h3>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-bullseye"></i></div><p><strong>Apertura y Enfoque:</strong> Por qué importa la productividad y velocidad en los flujos modernos</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-clipboard-question"></i></div><p><strong>Relevamiento:</strong> Entender nuestro punto de partida</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-brain"></i></div><p><strong>Fundamentos:</strong> Recordatorio crítico &mdash; La IA no sabe, solo predice</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-terminal"></i></div><p><strong>Prompting Avanzado:</strong> Estructura profesional (Objetivo, Rol, Contexto)</p></div>
+</div>
+<div class="roadmap-col">
+<h3><i class="fa-solid fa-2"></i> Segunda Hora</h3>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-bolt"></i></div><p><strong>Eficiencia:</strong> Métodos concretos para mejorar productividad y velocidad operativa</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-magnifying-glass-chart"></i></div><p><strong>Análisis Crítico:</strong> ¿Cómo definimos exactamente nuestro problema visual/narrativo?</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-rocket"></i></div><p><strong>Implementación:</strong> ¿Cuál es la ruta hacia nuestra solución final generada?</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ORÍGENES -->
+<section class="concepts" id="origenes">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-landmark"></i> Historia</div>
+<h2 class="section-title">La IA y sus Inicios Problemáticos</h2>
+<p class="section-subtitle">El término &ldquo;inteligencia artificial&rdquo; fue polémico desde el primer día.</p>
+<div class="concepts-grid">
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-scroll"></i></div>
+<h3>Dartmouth, 1955</h3>
+<p>John McCarthy acuñó el término buscando una etiqueta &ldquo;atractiva&rdquo; que atrajera financiación y expertos, diferenciándose de la cibernética y los &ldquo;estudios de autómatas&rdquo;.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-comments"></i></div>
+<h3>Un Nombre Polémico</h3>
+<p>Algunos asistentes al seminario lo consideraron &ldquo;pretencioso&rdquo; y &ldquo;algo engañoso&rdquo;. Newell y Simon prefirieron llamarlo &ldquo;procesamiento de información compleja&rdquo;.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-book-open"></i></div>
+<h3>70 Años Después</h3>
+<p>Kate Crawford argumenta que no es &ldquo;inteligencia&rdquo; ni &ldquo;artificial&rdquo;: existe de forma corpórea, hecha de recursos naturales, combustible, mano de obra e infraestructuras.</p>
+</div>
+</div>
+<div class="quote-block">
+&ldquo;Existe de forma corpórea, como algo material, hecho de recursos naturales, combustible, mano de obra, infraestructuras, logística, historias y clasificaciones.&rdquo;
+<span class="quote-source">&mdash; Kate Crawford, <em>Atlas de IA</em></span>
+</div>
+</div>
+</section>
+
+<!-- TOKEN VS EMBEDDING -->
+<section class="framework" id="token-embedding">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-code"></i> Conceptos Técnicos</div>
+<h2 class="section-title">Token vs. Embedding</h2>
+<p class="section-subtitle">Dos conceptos fundamentales para entender cómo procesa y &ldquo;entiende&rdquo; el lenguaje un modelo de IA.</p>
+<div class="gamemode-cards">
+<div class="gamemode-card historia">
+<div class="mode-icon"><i class="fa-solid fa-puzzle-piece" style="color:var(--orange)"></i></div>
+<h3>Token</h3>
+<p>La unidad básica con la que el modelo procesa texto. Es cómo fragmenta lo que le damos y lo que genera. Ahí se miden costos, límites de contexto y velocidad.</p>
+</div>
+<div class="gamemode-card arcade">
+<div class="mode-icon"><i class="fa-solid fa-vector-square" style="color:#64c8ff"></i></div>
+<h3>Embedding</h3>
+<p>La representación numérica del significado. Es el momento en que el lenguaje se convierte en un vector dentro de un espacio matemático donde las relaciones semánticas se pueden medir.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- IA EN EL AUDIOVISUAL -->
+<section class="dynamics" id="audiovisual-2026">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-clapperboard"></i> Industria</div>
+<h2 class="section-title">La IA en el Audiovisual en 2026</h2>
+<p class="section-subtitle">El estado actual de la adopción de IA generativa en la producción audiovisual según McKinsey y Amazon.</p>
+<div class="dynamics-grid">
+<div class="dynamic-block">
+<h3><i class="fa-solid fa-arrow-trend-up"></i> Adopción Activa</h3>
+<div class="dynamic-item"><i class="fa-solid fa-check"></i> Pre-producción: guiones, storyboards, conceptos</div>
+<div class="dynamic-item"><i class="fa-solid fa-check"></i> Post-producción: edición, VFX, color grading</div>
+<div class="dynamic-item"><i class="fa-solid fa-check"></i> Amazon usando IA generativa en sus flujos</div>
+</div>
+<div class="dynamic-block">
+<h3><i class="fa-solid fa-triangle-exclamation"></i> Desafíos Pendientes</h3>
+<div class="dynamic-item"><i class="fa-solid fa-xmark"></i> Producción física (rodaje) sigue rezagada</div>
+<div class="dynamic-item"><i class="fa-solid fa-xmark"></i> Implicaciones para el talento humano</div>
+<div class="dynamic-item"><i class="fa-solid fa-xmark"></i> Infracción de derechos de autor</div>
+<div class="dynamic-item"><i class="fa-solid fa-xmark"></i> Sesgo de los modelos</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ORIGEN DE LA HISTORIA -->
+<section class="concepts" id="origen-historia">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-paint-roller"></i> Narrativa</div>
+<h2 class="section-title">El Origen de la Historia</h2>
+<p class="section-subtitle">La narrativa siempre precede a la tecnología.</p>
+<div class="concepts-grid" style="grid-template-columns:1fr">
+<div class="concept-card" style="max-width:800px">
+<div class="concept-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+<h3>51.000 Años Atrás</h3>
+<p>Se publicaron las pinturas rupestres más antiguas conocidas, en Indonesia. Lo revolucionario no es que sean las más antiguas a nivel técnico o arqueológico. Lo revolucionario es que representan <strong style="color:var(--white)">la primera historia que se contó el ser humano</strong> de la que tenemos noticia documentada.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ¿POR QUÉ TODO SE PARECE? -->
+<section class="framework" id="por-que-se-parece">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-clone"></i> Análisis</div>
+<h2 class="section-title">¿Por Qué Casi Todo lo que Vemos Hecho con IA se Parece?</h2>
+<p class="section-subtitle">Una pregunta que debemos hacernos antes de generar el primer prompt.</p>
+<div class="app-grid">
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-equals"></i></div>
+<h3>Homogeneización Estética</h3>
+<p>Los modelos tienden hacia promedios estadísticos. Están entrenados con imágenes masivas sin filtro de curaduría artística. El sistema ofrece lo que tiene en mayor volumen.</p>
+</div>
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-laptop-code"></i></div>
+<h3>Dominio Técnico</h3>
+<p>Los programadores llegaron primero. La curva de experimentación está impulsada por perfiles tecnológicos, no necesariamente por artistas, fotógrafos o cineastas.</p>
+</div>
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-volume-high"></i></div>
+<h3>Ruido y Objetivos</h3>
+<p>Estamos en la infancia de la tecnología. La fascinación técnica nubla el criterio. Se usa masivamente para &ldquo;farmear&rdquo; engagement con piezas cortas y carentes de narrativa.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- EL GIRO -->
+<section class="gamemode" id="el-giro">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-rotate"></i> Paradigma</div>
+<h2 class="section-title">El Giro</h2>
+<p class="section-subtitle">El valor ya no reside en la ejecución técnica sino en la toma de decisiones.</p>
+<div class="gamemode-cards">
+<div class="gamemode-card historia">
+<div class="mode-icon"><i class="fa-solid fa-hammer" style="color:var(--orange)"></i></div>
+<h3>Antes: Ejecución</h3>
+<p>Durante siglos, el valor de una pieza residía en la capacidad técnica de realizar la obra. Saber usar el óleo, la cámara, el software 3D o la máquina de escribir era la principal barrera de entrada y el diferencial del artista.</p>
+</div>
+<div class="gamemode-card arcade">
+<div class="mode-icon"><i class="fa-solid fa-lightbulb" style="color:#64c8ff"></i></div>
+<h3>Ahora: Decisión</h3>
+<p>En la era de la IA, el valor reside en saber qué hacer, qué no hacer y cuándo parar. La máquina ejecuta; el humano toma las decisiones críticas de diseño, narrativa, estética y coherencia cultural.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- IA COMO HERRAMIENTA -->
+<section class="applications" id="ia-herramienta">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-toolbox"></i> Aplicaciones</div>
+<h2 class="section-title">La IA como Herramienta</h2>
+<p class="section-subtitle">Tres modos fundamentales de trabajo con IA generativa visual.</p>
+<div class="app-grid">
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-scalpel-line-dashed fa-scissors"></i></div>
+<h3>Edición Avanzada</h3>
+<p>Modificar lo existente con precisión: alterar fondos, ajustar incidencia de luz, cambiar expresiones, expandir encuadre (outpainting) y resolución.</p>
+</div>
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-sparkles"></i></div>
+<h3>Creación Pura</h3>
+<p>Generar material visual no filmado ni fotografiado, operando bajo una dirección estética, técnica y narrativa rigurosa y coherente con el proyecto.</p>
+</div>
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-flask"></i></div>
+<h3>Inspiración Activa</h3>
+<p>Utilizar los modelos como un laboratorio visual de alta velocidad. Explorar conceptos de arte, testear ideas complejas y bocetar storyboards en tiempo récord.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- MODELOS CERRADOS VS ABIERTOS -->
+<section class="concepts" id="modelos">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-scale-balanced"></i> Ecosistema</div>
+<h2 class="section-title">Modelos Cerrados vs. Abiertos</h2>
+<p class="section-subtitle">Dos filosofías que definen cómo accedemos y controlamos la IA generativa.</p>
+<table class="comparison-table">
+<thead>
+<tr>
+<th>Categoría</th>
+<th><i class="fa-solid fa-lock"></i> Modelos Cerrados</th>
+<th><i class="fa-solid fa-lock-open"></i> Modelos Abiertos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Imagen / Video</td>
+<td>Midjourney, Runway, Sora</td>
+<td>Stable Diffusion, Flux, CivitAI</td>
+</tr>
+<tr>
+<td>Control Técnico</td>
+<td>Limitado &mdash; Operan como &ldquo;Caja Negra&rdquo;</td>
+<td>Total &mdash; Altamente modificables (Nodos, LoRAs)</td>
+</tr>
+<tr>
+<td>Privacidad &amp; Infra.</td>
+<td>Dependencia absoluta de la nube y suscripciones</td>
+<td>Ejecución local privada (requiere hardware)</td>
+</tr>
+<tr>
+<td>Perfil Requerido</td>
+<td>Usuario (Uso como herramienta directa)</td>
+<td>Operador (Constructor de sistemas/pipelines)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- HERRAMIENTAS POR ETAPAS -->
+<section class="framework" id="herramientas-etapas">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-layer-group"></i> Pipeline</div>
+<h2 class="section-title">Herramientas por Etapas</h2>
+<p class="section-subtitle">Un pipeline de producción completo con IA: del concepto al movimiento.</p>
+<div class="pipeline-grid">
+<div class="pipeline-card" data-step="01">
+<h4><i class="fa-solid fa-pen-ruler"></i> Concepto</h4>
+<p class="pipeline-desc">Estructura del mensaje, análisis de público, tono</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>ChatGPT, Gemini, Claude</p>
+</div>
+<div class="pipeline-card" data-step="02">
+<h4><i class="fa-solid fa-palette"></i> Visual</h4>
+<p class="pipeline-desc">Generación de imagen base, estilos, paleta de color</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>Grok, Meta, Reve, Aifreeforever, Modelscope</p>
+</div>
+<div class="pipeline-card" data-step="03">
+<h4><i class="fa-solid fa-music"></i> Sonoro</h4>
+<p class="pipeline-desc">Guión, clonación de voz, música, FX</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>ElevenLabs, Mindvideo, fish.audio</p>
+</div>
+<div class="pipeline-card" data-step="04">
+<h4><i class="fa-solid fa-video"></i> Movimiento</h4>
+<p class="pipeline-desc">Animación de assets, clips de video, sincronización labial</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>Grok (Beta Video), Meta (Emu Video), Qwen</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- EL ROL HUMANO -->
+<section class="dynamics" id="rol-humano">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-user-astronaut"></i> Rol Humano</div>
+<h2 class="section-title">El Rol Humano</h2>
+<p class="section-subtitle">La IA ejecuta; vos decidís. Tres funciones esenciales que la máquina no puede cumplir.</p>
+<div class="app-grid">
+<div class="app-card">
+<div class="app-icon" style="font-family:var(--font-title);font-weight:900;font-size:1.8rem;color:var(--orange)">01</div>
+<h3>CURA</h3>
+<p>Asumir el rol de curador crítico. Elegir con agudeza, descartar implacablemente el ruido y construir verdadero sentido narrativo entre infinitas opciones probabilísticas.</p>
+</div>
+<div class="app-card">
+<div class="app-icon" style="font-family:var(--font-title);font-weight:900;font-size:1.8rem;color:var(--orange)">02</div>
+<h3>OPERA</h3>
+<p>Convertirse en el arquitecto del flujo. No basta con generar imágenes sueltas; el objetivo es construir los sistemas, workflows y pipelines técnicos que sustentan una producción profesional.</p>
+</div>
+<div class="app-card">
+<div class="app-icon" style="font-family:var(--font-title);font-weight:900;font-size:1.8rem;color:var(--orange)">03</div>
+<h3>DIRIGE</h3>
+<p>Ser el protector de la visión. La IA tenderá a desviarse hacia el promedio. Tu rol es actuar como Director de Arte, manteniendo la intención original y la coherencia estética intactas.</p>
+</div>
+</div>
+<div class="quote-block">
+&ldquo;La inteligencia artificial me acortó el proceso de encontrar esos objetos surrealistas, pero el concepto y la composición son míos. Si le pido a la IA que haga la imagen completa, no me sale ni por casualidad lo que tengo en la cabeza.&rdquo;
+<span class="quote-source">&mdash; <a href="https://www.instagram.com/yo.maria.victoria/" target="_blank" style="color:var(--orange)">María Victoria</a> &mdash; Práctica visual post-fotográfica</span>
+</div>
+<div class="quote-block" style="margin-top:1rem">
+&ldquo;El problema está en cuando solo seguís lo que la IA te dice o te genera, sin ponerle cabeza, sin guiarlo y hasta sin desafiarlo de vez en cuando. Ahí es donde surge la fatiga algorítmica.&rdquo;
+<span class="quote-source">&mdash; <a href="https://www.lanacion.com.ar/economia/negocios/publicidad-y-algoritmos-como-diferenciarse-en-la-era-de-la-ia-nid17012026/" target="_blank" style="color:var(--orange)">La Nación</a></span>
+</div>
+</div>
+</section>
+
+<!-- PROMPTING AVANZADO -->
+<section class="concepts" id="prompting-avanzado">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-terminal"></i> Prompting</div>
+<h2 class="section-title">Prompting Avanzado: Image Analyst</h2>
+<p class="section-subtitle">Deconstruir imágenes de referencia para convertir sentimiento estético en variables técnicas exactas.</p>
+<div class="concepts-grid">
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-code"></i></div>
+<h3>Estructuras XML/JSON</h3>
+<p>El nivel avanzado de prompting requiere encapsular comandos en lenguajes estructurados para evitar alucinaciones y maximizar la precisión del output.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-microscope"></i></div>
+<h3>Análisis Deconstructivo</h3>
+<p>Utilizar un &ldquo;Role&rdquo; experto en análisis visual (fotografía, composición, iluminación) para desarmar imágenes de referencia pieza por pieza.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-list-check"></i></div>
+<h3>Workflow Estricto</h3>
+<p>Pasos secuenciales inquebrantables: Upload &rarr; Análisis profundo &rarr; Petición de ajustes &rarr; Exportación de Perfil JSON.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-arrows-turn-to-dots"></i></div>
+<h3>Traducción Estética &rarr; Técnica</h3>
+<p>Convertir el &ldquo;sentimiento&rdquo; de una obra en variables técnicas exactas (hex codes, aspect ratio, ISO, focales) para inyectarlas en Midjourney o Flux.</p>
+</div>
+</div>
+<div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"composition"</span>: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"aspect_ratio"</span>: <span class="str">"3:2"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"layout"</span>: <span class="str">"central symmetry with vertical energy"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"focal_points"</span>: [<span class="str">"fire in the pan"</span>, <span class="str">"central subject's shocked expression"</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"depth_layers"</span>: [<span class="str">"foreground (table, fire)"</span>, <span class="str">"midground (subjects)"</span>, <span class="str">"background (windows)"</span>]<br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;<span class="key">"color_profile"</span>: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"dominant_colors"</span>: [<span class="str">"#F6B035"</span>, <span class="str">"#FFDD83"</span>, <span class="str">"#3A6F4D"</span>, <span class="str">"#19381F"</span>, <span class="str">"#C4A891"</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"temperature"</span>: <span class="str">"mixed (warm highlights, cool green shadows)"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"palette_description"</span>: <span class="str">"cinematic complementary contrast of orange and teal-green"</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;<span class="key">"lighting"</span>: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"type"</span>: <span class="str">"mixed artificial and practical"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"direction"</span>: [<span class="str">"top-down from lamps"</span>, <span class="str">"bottom-up from fire"</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"mood"</span>: <span class="str">"dramatic yet comedic tension"</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;<span class="key">"technical_specs"</span>: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"medium"</span>: <span class="str">"digital photography"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"style"</span>: <span class="str">"cinematic realism with stylized color grading"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"sharpness"</span>: <span class="str">"high focus on faces and flame"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"depth_of_field"</span>: <span class="str">"moderate with soft background separation"</span><br>
+&nbsp;&nbsp;}<br>
+}
+</div>
+</div>
+</section>
+
+<!-- ESTRUCTURA MÍNIMA -->
+<section class="framework" id="estructura-minima">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-sitemap"></i> Estructura</div>
+<h2 class="section-title">Una Estructura Mínima Posible</h2>
+<p class="section-subtitle">Cuatro variables fundamentales para describir cualquier imagen que queramos generar.</p>
+<div class="structure-grid">
+<div class="structure-card">
+<h4><i class="fa-solid fa-location-dot"></i> Locación</h4>
+<p>El espacio físico donde ocurre la escena: el tipo de lugar, su contexto y los elementos del entorno que lo definen.</p>
+</div>
+<div class="structure-card">
+<h4><i class="fa-solid fa-cloud-sun"></i> Atmósfera</h4>
+<p>La sensación o clima emocional de la imagen, incluyendo luz, temperatura de color, mood y la energía que transmite la escena.</p>
+</div>
+<div class="structure-card">
+<h4><i class="fa-solid fa-camera"></i> Cámara</h4>
+<p>Cómo se ve la escena: tipo de plano, ángulo, distancia, profundidad de campo, lente o estilo visual desde el que se captura.</p>
+</div>
+<div class="structure-card">
+<h4><i class="fa-solid fa-person"></i> Personaje (Objeto)</h4>
+<p>Quién (o qué) aparece en la escena y sus características visibles: edad, apariencia, vestimenta, postura y acción.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- EJERCICIO -->
+<section class="exercise" id="ejercicio">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-flask"></i> Práctica</div>
+<h2 class="section-title">Ejercicio Práctico</h2>
+<p class="section-subtitle">Plan de acción en vivo: de la referencia visual a la creación con IA.</p>
+<div class="exercise-vars">
+<div class="exercise-var">
+<strong><i class="fa-solid fa-image"></i> Imagen de Referencia</strong>
+<span>Trabajaremos sobre una imagen curada previamente para decodificar su ADN visual</span>
+</div>
+<div class="exercise-var">
+<strong><i class="fa-solid fa-wand-magic-sparkles"></i> Nuevas Imágenes</strong>
+<span>Construiremos con la IA nuevas imágenes a partir de estas referencias</span>
+</div>
+<div class="exercise-var">
+<strong><i class="fa-solid fa-sliders"></i> Estilos Técnicos</strong>
+<span>Investigaremos lentes, iluminación de cine, paletas y compondremos planos</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PLATAFORMAS -->
+<section class="platforms" id="plataformas">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-toolbox"></i> Herramientas</div>
+<h2 class="section-title">Plataformas y Herramientas</h2>
+<p class="section-subtitle">Ecosistema de herramientas de IA mencionadas en la Clase 2.</p>
+
+<div class="platform-section">
+<h3><i class="fa-solid fa-palette"></i> Generación de Imagen <span class="badge">Visual</span></h3>
+<div class="platform-grid">
+<a href="https://www.krea.ai/realtime" target="_blank" class="platform-link"><i class="fa-solid fa-paintbrush"></i> Krea AI Realtime</a>
+<a href="https://app.flora.ai/" target="_blank" class="platform-link"><i class="fa-solid fa-seedling"></i> Flora AI</a>
+<a href="https://magnific.ai/" target="_blank" class="platform-link"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Magnific AI</a>
+<a href="https://huggingface.co/spaces/linoyts/Qwen-Image-Edit-Angles" target="_blank" class="platform-link"><i class="fa-solid fa-cube"></i> Qwen Image Edit</a>
+<a href="https://www.meigen.ai/" target="_blank" class="platform-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Meigen AI</a>
+</div>
+</div>
+
+<div class="platform-section">
+<h3><i class="fa-solid fa-film"></i> Video &amp; Movimiento <span class="badge">Motion</span></h3>
+<div class="platform-grid">
+<a href="https://ai.invideo.io/" target="_blank" class="platform-link"><i class="fa-solid fa-video"></i> InVideo AI</a>
+<a href="https://getmocha.com/" target="_blank" class="platform-link"><i class="fa-solid fa-person-walking"></i> Mocha (Tracking)</a>
+<a href="https://grass-periwinkle-e9d.notion.site/Kling-3-Video-Agent-V-01-30184991396d80dca42cd79b15a81fce" target="_blank" class="platform-link"><i class="fa-solid fa-clapperboard"></i> Kling 3 Video Agent</a>
+<a href="https://runwayml.com/bigadcontest" target="_blank" class="platform-link"><i class="fa-solid fa-trophy"></i> Runway Big Ad Contest</a>
+</div>
+</div>
+
+<div class="platform-section">
+<h3><i class="fa-solid fa-gears"></i> Workflow &amp; Pipelines <span class="badge">Pro</span></h3>
+<div class="platform-grid">
+<a href="https://comfy.org/" target="_blank" class="platform-link"><i class="fa-solid fa-diagram-project"></i> ComfyUI</a>
+<a href="https://app.mito.ai/" target="_blank" class="platform-link"><i class="fa-solid fa-table-cells"></i> Mito AI</a>
+<a href="https://from021.io/" target="_blank" class="platform-link"><i class="fa-solid fa-circle-nodes"></i> From 0 to 1</a>
+<a href="https://prompts.chat/" target="_blank" class="platform-link"><i class="fa-solid fa-message"></i> Prompts.chat</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- RECURSOS Y LECTURAS -->
+<section class="resources" id="recursos">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-bookmark"></i> Lecturas</div>
+<h2 class="section-title">Recursos y Lecturas</h2>
+<p class="section-subtitle">Artículos, perfiles y referencias compartidos en la Clase 2.</p>
+<div class="resource-grid">
+<a href="https://www.jotdown.es/2026/03/inteligencia-artificial-resulta-enganoso/" target="_blank" class="resource-link"><i class="fa-solid fa-newspaper"></i> <span>Jot Down &mdash; &ldquo;Inteligencia Artificial&rdquo; resulta engañoso</span></a>
+<a href="https://ecosistemastartup.com/google-turboquant-el-algoritmo-de-compresion-de-memoria-ia-sin-perdida/" target="_blank" class="resource-link"><i class="fa-solid fa-microchip"></i> <span>Google TurboQuant &mdash; Compresión de memoria IA</span></a>
+<a href="https://claquetaia.substack.com/p/que-diganostica-y-recomienda-mckinsey" target="_blank" class="resource-link"><i class="fa-solid fa-chart-pie"></i> <span>Claqueta IA &mdash; ¿Qué diagnostica McKinsey?</span></a>
+<a href="https://inmendoza.com/artistas-que-marcan-el-pulso-mendoza-como-laboratorio-visual/" target="_blank" class="resource-link"><i class="fa-solid fa-palette"></i> <span>InMendoza &mdash; Artistas que marcan el pulso</span></a>
+<a href="https://www.lanacion.com.ar/economia/negocios/publicidad-y-algoritmos-como-diferenciarse-en-la-era-de-la-ia-nid17012026/" target="_blank" class="resource-link"><i class="fa-solid fa-bullhorn"></i> <span>La Nación &mdash; Publicidad y algoritmos</span></a>
+<a href="https://www.421.news/es/mcluhan-ia-llm/" target="_blank" class="resource-link"><i class="fa-solid fa-satellite-dish"></i> <span>421 News &mdash; McLuhan, IA y LLM</span></a>
+<a href="https://www.instagram.com/yo.maria.victoria/" target="_blank" class="resource-link"><i class="fa-brands fa-instagram"></i> <span>María Victoria &mdash; Práctica visual post-fotográfica</span></a>
+<a href="https://x.com/cfryant/status/2034050997744525729" target="_blank" class="resource-link"><i class="fa-brands fa-x-twitter"></i> <span>@cfryant &mdash; Referencia visual</span></a>
+<a href="https://x.com/javilopen/status/2035043102625309101" target="_blank" class="resource-link"><i class="fa-brands fa-x-twitter"></i> <span>@javilopen &mdash; Referencia técnica</span></a>
+<a href="https://x.com/AmirMushich/status/2019073081881293302" target="_blank" class="resource-link"><i class="fa-brands fa-x-twitter"></i> <span>@AmirMushich &mdash; Meigen AI demo</span></a>
+</div>
+</div>
+</section>
+
+<!-- CIERRE -->
+<section class="closing" id="cierre">
+<div class="container" style="text-align:center">
+<div class="section-tag"><i class="fa-solid fa-flag-checkered"></i> Cierre</div>
+<h2 class="section-title">Cierre &amp; Próximos Pasos</h2>
+<div class="closing-grid">
+<div class="closing-block">
+<h3><i class="fa-solid fa-check-circle"></i> Repaso</h3>
+<ul>
+<li>La IA opera sobre el promedio estadístico y sus probabilidades matemáticas</li>
+<li>Nuestro rol humano (Cura, Opera, Dirige) es vital para lograr resultados &ldquo;originales&rdquo;</li>
+<li>Al igual que la IA, nosotros también construimos siempre a partir de lo que ya existe</li>
+</ul>
+</div>
+<div class="closing-block">
+<h3><i class="fa-solid fa-clipboard-check"></i> Tarea</h3>
+<ul>
+<li>Caja de Herramientas: investigar y filtrar las redes sociales y canales compartidos en el Aula Virtual</li>
+<li>Experimentación: crear cuentas y ejecutar pruebas de concepto con las plataformas gratuitas de generación de imagen</li>
+</ul>
+</div>
+</div>
+<p style="margin-top:2.5rem;color:var(--gray-light);font-size:.95rem">
+<strong style="color:var(--orange)">Próxima sesión:</strong> Análisis profundo de Prompting para Video y sincronización de assets (Clase 3)
+</p>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>ITU &middot; UNCuyo &middot; 2026 &mdash; Inteligencia Artificial: Intro a la Generación de Imagen y Video &mdash; Docente: <a href="https://www.linkedin.com/in/franerian/" target="_blank">Francisco Erian</a></p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('animate');
+observer.unobserve(entry.target);
+}
+});
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.concept-card, .roadmap-item, .framework-step, .app-card, .gamemode-card, .pipeline-card, .structure-card').forEach(el => {
+observer.observe(el);
+});
+</script>
+</body>
+</html>
