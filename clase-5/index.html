@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITU 2026 - Inteligencia Artificial: Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--orange:#F5A623;
+--orange-dark:#E09000;
+--orange-light:#FFD080;
+--dark:#1a1a1a;
+--darker:#111;
+--gray:#2a2a2a;
+--gray-light:#888;
+--white:#fff;
+--text:#e0e0e0;
+--font-main:'Inter',sans-serif;
+--font-title:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-main);background:var(--darker);color:var(--text);line-height:1.6;width:100%;overflow-x:hidden}
+
+/* HERO */
+.hero{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 50%,#1a1a1a 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23222" width="100" height="100"/><circle fill="%23282828" cx="50" cy="50" r="40"/></svg>') repeat;background-size:100px;opacity:.3}
+.hero::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 70% 50%,rgba(245,166,35,.12) 0%,transparent 60%);pointer-events:none}
+.hero-content{position:relative;z-index:2;width:100%;max-width:1200px;padding:2rem;display:flex;flex-wrap:wrap;align-items:center;gap:3rem}
+.hero-text{flex:1;min-width:320px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);border-radius:50px;padding:.4rem 1rem;font-size:.8rem;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:1.5rem}
+.hero-text h1{font-family:var(--font-title);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;color:var(--white);line-height:1.05;margin-bottom:.5rem}
+.hero-text h1 span{background:linear-gradient(135deg,var(--orange),var(--orange-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-text .subtitle{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--gray-light);margin-bottom:2rem;font-weight:300;max-width:560px}
+.hero-visual{flex:1;min-width:300px;display:flex;justify-content:center;align-items:center}
+.hero-icon-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:340px}
+.hero-icon-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.8rem 1.2rem;text-align:center;transition:all .3s ease}
+.hero-icon-card:hover{border-color:rgba(245,166,35,.3);transform:translateY(-4px)}
+.hero-icon-card i{font-size:2rem;color:var(--orange);margin-bottom:.6rem;display:block}
+.hero-icon-card span{font-size:.8rem;color:var(--gray-light);font-weight:500}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .3s ease;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:var(--dark);box-shadow:0 4px 20px rgba(245,166,35,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(245,166,35,.5)}
+.btn-outline{background:transparent;border:2px solid rgba(255,255,255,.2);color:var(--white)}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+
+/* SECTIONS */
+section{width:100%;padding:5rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);border-radius:50px;padding:.3rem .9rem;font-size:.75rem;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem}
+.section-title{font-family:var(--font-title);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--white);margin-bottom:1rem}
+.section-subtitle{color:var(--gray-light);max-width:700px;margin-bottom:3rem;font-size:1.05rem}
+
+/* ROADMAP */
+.roadmap{background:var(--dark)}
+.roadmap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.roadmap-item{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.05);transition:border-color .3s}
+.roadmap-item:hover{border-color:rgba(245,166,35,.3)}
+.roadmap-num{min-width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.15);color:var(--orange);font-weight:700;font-size:.85rem;border-radius:8px;flex-shrink:0}
+.roadmap-item h4{color:var(--white);font-weight:700;font-size:1rem;margin-bottom:.3rem;font-family:var(--font-title)}
+.roadmap-item p{font-size:.88rem;color:var(--gray-light)}
+
+/* CONCEPTS */
+.concepts{background:var(--darker)}
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem}
+.concept-card{background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:2rem;transition:all .3s ease}
+.concept-card:hover{transform:translateY(-4px);border-color:rgba(245,166,35,.2);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.concept-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.12);border-radius:12px;color:var(--orange);font-size:1.3rem;margin-bottom:1.2rem}
+.concept-card h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;margin-bottom:.8rem;font-weight:700}
+.concept-card p{color:var(--gray-light);font-size:.93rem;line-height:1.7}
+
+/* FRAMEWORK */
+.framework{background:var(--dark)}
+.framework-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem}
+.framework-step{text-align:center;padding:2rem 1.2rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:14px;transition:all .3s}
+.framework-step:hover{border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.04)}
+.framework-step .step-num{font-family:var(--font-title);font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--orange-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.framework-step h4{color:var(--white);margin:.6rem 0 .4rem;font-weight:600;font-size:1rem}
+.framework-step p{color:var(--gray-light);font-size:.85rem;line-height:1.5}
+
+/* DYNAMICS */
+.dynamics{background:var(--darker)}
+.dynamics-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.dynamic-block{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:2rem}
+.dynamic-block h3{font-family:var(--font-title);color:var(--orange);font-size:1.2rem;margin-bottom:1.2rem;font-weight:700;display:flex;align-items:center;gap:.6rem}
+.dynamic-item{display:flex;align-items:flex-start;gap:.8rem;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem}
+.dynamic-item:last-child{border-bottom:none}
+.dynamic-item i{color:var(--orange);font-size:.8rem;min-width:16px;margin-top:.2rem}
+
+/* APP GRID */
+.applications{background:var(--dark)}
+.app-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.app-card{padding:2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;transition:all .3s;text-align:center}
+.app-card:hover{border-color:rgba(245,166,35,.2);transform:translateY(-3px)}
+.app-card .app-icon{font-size:2rem;color:var(--orange);margin-bottom:1rem}
+.app-card h3{font-family:var(--font-title);color:var(--white);font-size:1.1rem;margin-bottom:.6rem}
+.app-card p{color:var(--gray-light);font-size:.88rem;line-height:1.6}
+
+/* PIPELINE */
+.pipeline-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.pipeline-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:1.8rem;transition:all .3s;position:relative;overflow:hidden}
+.pipeline-card::before{content:attr(data-step);position:absolute;top:.8rem;right:1rem;font-family:var(--font-title);font-size:3rem;font-weight:900;color:rgba(245,166,35,.08);line-height:1}
+.pipeline-card:hover{border-color:rgba(245,166,35,.3);transform:translateY(-3px)}
+.pipeline-card h4{font-family:var(--font-title);color:var(--orange);font-size:1rem;margin-bottom:.4rem}
+.pipeline-card .pipeline-sub{font-size:.78rem;color:var(--gray-light);margin-bottom:.6rem}
+.pipeline-card .pipeline-tools{font-size:.82rem;color:var(--text)}
+
+/* COMPARISON TABLE */
+.comparison-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;margin-top:2rem}
+.comparison-table th{background:rgba(245,166,35,.15);color:var(--orange);font-family:var(--font-title);font-weight:700;font-size:.9rem;padding:1rem 1.2rem;text-align:left}
+.comparison-table td{padding:1rem 1.2rem;font-size:.88rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.02)}
+.comparison-table tr:last-child td{border-bottom:none}
+.comparison-table td:first-child{color:var(--white);font-weight:600}
+.comparison-table td.good{color:#6fcf97}
+.comparison-table td.bad{color:#eb5757}
+
+/* LAYERS */
+.layers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem}
+.layer-card{border-radius:16px;padding:2rem;border:1px solid rgba(255,255,255,.06);transition:all .3s}
+.layer-card.capa1{background:linear-gradient(145deg,rgba(245,166,35,.08),rgba(245,166,35,.02))}
+.layer-card.capa2{background:linear-gradient(145deg,rgba(100,200,255,.08),rgba(100,200,255,.02))}
+.layer-card.capa3{background:linear-gradient(145deg,rgba(180,100,255,.08),rgba(180,100,255,.02))}
+.layer-card:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.layer-num{font-family:var(--font-title);font-size:3rem;font-weight:900;line-height:1;margin-bottom:.8rem}
+.layer-card.capa1 .layer-num{background:linear-gradient(135deg,var(--orange),var(--orange-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.layer-card.capa2 .layer-num{color:#64c8ff}
+.layer-card.capa3 .layer-num{color:#b464ff}
+.layer-card h3{font-family:var(--font-title);color:var(--white);font-size:1.3rem;margin-bottom:.3rem}
+.layer-card .layer-sub{font-size:.8rem;color:var(--gray-light);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.layer-card p{color:var(--gray-light);font-size:.9rem;line-height:1.7}
+
+/* ITERATION */
+.iteration-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.iteration-card{padding:1.8rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;transition:all .3s}
+.iteration-card:hover{border-color:rgba(245,166,35,.3)}
+.iteration-card h4{font-family:var(--font-title);color:var(--orange);font-size:1rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.6rem}
+.iteration-card p{color:var(--gray-light);font-size:.88rem;line-height:1.6}
+
+/* CODE BLOCK */
+.code-block{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.5rem;margin-top:2rem;overflow-x:auto;font-family:'Courier New',monospace;font-size:.82rem;line-height:1.7;color:var(--text);max-height:400px;overflow-y:auto;white-space:pre-wrap}
+
+/* STORYBOARD */
+.storyboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:2rem}
+.storyboard-card{padding:1.4rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;transition:all .3s}
+.storyboard-card:hover{border-color:rgba(245,166,35,.2)}
+.storyboard-num{font-family:var(--font-title);font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--orange),var(--orange-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.5rem}
+.storyboard-card p{font-size:.85rem;color:var(--gray-light);line-height:1.6}
+.storyboard-card .locutor{font-size:.8rem;color:var(--orange);font-style:italic;margin-top:.5rem}
+
+/* RESOURCES */
+.resources{background:var(--darker)}
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+.resource-link{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;text-decoration:none;color:var(--text);transition:all .3s}
+.resource-link:hover{border-color:rgba(245,166,35,.3);color:var(--white);background:rgba(245,166,35,.05)}
+.resource-link i{color:var(--orange);font-size:1.2rem;min-width:24px;text-align:center}
+.resource-link span{font-size:.9rem}
+
+/* PRESENTATION */
+.presentation{background:var(--darker)}
+.pres-wrapper{position:relative;width:100%;padding-bottom:58.5%;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(245,166,35,.05)}
+.pres-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+/* QUOTE */
+.quote-block{background:rgba(245,166,35,.05);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:1.5rem 2rem;margin:2rem 0;font-style:italic;color:var(--text);font-size:.95rem;line-height:1.8}
+.quote-block .quote-source{font-style:normal;font-size:.8rem;color:var(--orange);margin-top:.8rem;display:block}
+
+/* EXERCISE */
+.exercise{background:linear-gradient(135deg,rgba(245,166,35,.08),rgba(245,166,35,.02));border-top:1px solid rgba(245,166,35,.15);border-bottom:1px solid rgba(245,166,35,.15)}
+.exercise-vars{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:2rem}
+.exercise-var{padding:1.2rem;background:rgba(0,0,0,.2);border-radius:10px;border:1px solid rgba(245,166,35,.15)}
+.exercise-var strong{color:var(--orange);font-size:.85rem;display:block;margin-bottom:.4rem}
+.exercise-var span{color:var(--text);font-size:.88rem}
+
+/* CLOSING */
+.closing{background:linear-gradient(135deg,var(--dark),var(--darker));text-align:center}
+.closing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;text-align:left;margin-top:2rem;max-width:900px;margin-left:auto;margin-right:auto}
+.closing-block{padding:2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px}
+.closing-block h3{font-family:var(--font-title);color:var(--orange);font-size:1.1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.closing-block ul{list-style:none;padding:0}
+.closing-block li{padding:.4rem 0;font-size:.9rem;color:var(--text);display:flex;align-items:flex-start;gap:.5rem}
+.closing-block li::before{content:'\2192';color:var(--orange);font-weight:700}
+
+/* FOOTER */
+.footer{background:var(--darker);border-top:1px solid rgba(255,255,255,.06);padding:2rem;text-align:center}
+.footer p{color:var(--gray-light);font-size:.8rem}
+.footer a{color:var(--orange);text-decoration:none}
+
+/* PLATFORMS */
+.platforms{background:var(--dark)}
+.platform-section{margin-bottom:2.5rem}
+.platform-section h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;margin-bottom:1rem;font-weight:700;display:flex;align-items:center;gap:.6rem}
+.platform-section h3 .badge{background:rgba(245,166,35,.15);color:var(--orange);padding:.2rem .7rem;border-radius:20px;font-size:.7rem;font-weight:600;text-transform:uppercase}
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.platform-link{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;text-decoration:none;color:var(--text);transition:all .3s;font-size:.9rem}
+.platform-link:hover{border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.05);color:var(--white)}
+.platform-link i{color:var(--orange);font-size:1.1rem;min-width:20px;text-align:center}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.dynamics-grid,.closing-grid,.app-grid,.layers-grid,.iteration-grid{grid-template-columns:1fr}
+.hero-content{flex-direction:column;text-align:center}
+.hero-cta{justify-content:center}
+.framework-steps{grid-template-columns:1fr 1fr}
+.pipeline-grid{grid-template-columns:1fr}
+.comparison-table{font-size:.8rem}
+.comparison-table th,.comparison-table td{padding:.7rem .8rem}
+}
+@media(max-width:480px){
+.framework-steps{grid-template-columns:1fr}
+section{padding:3rem 1rem}
+.hero-icon-grid{grid-template-columns:1fr 1fr;gap:.8rem;max-width:280px}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.animate{animation:fadeUp .6s ease forwards;opacity:0}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--darker)}
+::-webkit-scrollbar-thumb{background:var(--gray);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gray-light)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+<div class="hero-text">
+<div class="hero-badge"><i class="fa-solid fa-microchip"></i> ITU &middot; UNCuyo &middot; 2026</div>
+<h1>Proyecto<br><span>de Producci&oacute;n</span></h1>
+<p class="subtitle">Clase 5: Imagen, audio y video. De 0 a 100 con un pipeline creativo real, repetible y escalable.</p>
+<div class="hero-cta">
+<a href="#presentacion" class="btn btn-primary"><i class="fa-solid fa-play"></i> Ver Presentaci&oacute;n</a>
+<a href="#objetivos" class="btn btn-outline"><i class="fa-solid fa-bullseye"></i> Objetivos</a>
+</div>
+</div>
+<div class="hero-visual">
+<div class="hero-icon-grid">
+<div class="hero-icon-card"><i class="fa-solid fa-image"></i><span>Imagen</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-microphone"></i><span>Audio</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-film"></i><span>Video</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-rotate"></i><span>Iteraci&oacute;n</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PRESENTACIÓN HERO -->
+<section class="presentation" id="presentacion-hero" style="padding:3rem 2rem">
+<div class="container">
+<div class="pres-wrapper">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRM3GkGX8jOr-HU5RGvbSqm76Z8n5iE6J2woOBjc-ydIaCB2Da_CVfUuwEAvgIcqXjpMzDeYZfTdJ2K/pubembed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+</div>
+</section>
+
+<!-- OBJETIVOS -->
+<section class="roadmap" id="objetivos">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-bullseye"></i> Encuentro</div>
+<h2 class="section-title">Objetivos del Encuentro</h2>
+<p class="section-subtitle">Aplicar todo lo aprendido a un proyecto concreto, tangible y publicable.</p>
+<div class="roadmap-grid">
+<div class="roadmap-item">
+<div class="roadmap-num"><i class="fa-solid fa-briefcase"></i></div>
+<div><h4>Caso</h4><p>Aplicar todo lo aprendido te&oacute;ricamente a un proyecto concreto y tangible.</p></div>
+</div>
+<div class="roadmap-item">
+<div class="roadmap-num"><i class="fa-solid fa-diagram-project"></i></div>
+<div><h4>Workflow</h4><p>Dise&ntilde;ar un flujo de trabajo profesional que sea repetible y escalable en el tiempo.</p></div>
+</div>
+<div class="roadmap-item">
+<div class="roadmap-num"><i class="fa-solid fa-cubes"></i></div>
+<div><h4>Producci&oacute;n</h4><p>Generar assets reales (im&aacute;genes, pistas de audio, clips de video) listos para publicaci&oacute;n.</p></div>
+</div>
+<div class="roadmap-item">
+<div class="roadmap-num"><i class="fa-solid fa-rotate"></i></div>
+<div><h4>Iteraci&oacute;n</h4><p>Aprender a pulir, descartar y refinar incansablemente hasta lograr la calidad final deseada.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DEFINAMOS -->
+<section class="framework" id="definamos">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-pen-ruler"></i> Definici&oacute;n</div>
+<h2 class="section-title">Defin&aacute;mos&hellip;</h2>
+<p class="section-subtitle">Antes de generar cualquier asset, hay cuatro preguntas que deben responderse.</p>
+<div class="framework-steps">
+<div class="framework-step">
+<div class="step-num">1</div>
+<h4>&iquest;Qu&eacute;?</h4>
+<p>&iquest;Qu&eacute; quer&eacute;s producir exactamente? Define el n&uacute;cleo del contenido visual o audiovisual.</p>
+</div>
+<div class="framework-step">
+<div class="step-num">2</div>
+<h4>&iquest;Qui&eacute;n?</h4>
+<p>&iquest;Para qui&eacute;n es? Define con precisi&oacute;n qui&eacute;n es la audiencia final que consumir&aacute; la pieza.</p>
+</div>
+<div class="framework-step">
+<div class="step-num">3</div>
+<h4>&iquest;Para qu&eacute;?</h4>
+<p>&iquest;Cu&aacute;l es la utilidad real del asset? (Vender, educar, entretener, posicionar marca).</p>
+</div>
+<div class="framework-step">
+<div class="step-num">4</div>
+<h4>Formato</h4>
+<p>&iquest;D&oacute;nde vivir&aacute;? Reel, Post de Instagram, Presentaci&oacute;n corporativa, Web, Impresi&oacute;n.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ARQUITECTURA DEL PROYECTO -->
+<section class="concepts" id="arquitectura">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-sitemap"></i> Estructura</div>
+<h2 class="section-title">Arquitectura del Proyecto</h2>
+<p class="section-subtitle">Los cuatro pilares de cualquier producci&oacute;n con IA que aspire a ser profesional.</p>
+<div class="concepts-grid">
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-lightbulb"></i></div>
+<h3>01. Concepto</h3>
+<p>La idea central inquebrantable que gu&iacute;a todo el desarrollo. Sin concepto claro, el modelo genera ruido.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-box-open"></i></div>
+<h3>02. Assets</h3>
+<p>La lista exacta de materiales brutos necesarios. Im&aacute;genes, voces, m&uacute;sica, clips: todo debe ser planificado antes de generarse.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-diagram-project"></i></div>
+<h3>03. Pipeline</h3>
+<p>La secuencia t&eacute;cnica de herramientas conectadas. Define el orden l&oacute;gico de cada herramienta y su input/output.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-user-check"></i></div>
+<h3>04. Control</h3>
+<p>La revisi&oacute;n humana y el aseguramiento de calidad final. La m&aacute;quina ejecuta; vos aprobás o descartás.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ESTRUCTURA DEL PROYECTO -->
+<section class="framework" id="estructura-proyecto">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-clapperboard"></i> Producci&oacute;n</div>
+<h2 class="section-title">Estructura de un Proyecto de Video</h2>
+<p class="section-subtitle">Cuatro etapas para construir un video con IA de forma profesional.</p>
+<div class="framework-steps">
+<div class="framework-step">
+<div class="step-num">1</div>
+<h4>Configuraci&oacute;n</h4>
+<p>Duraci&oacute;n total del video, cantidad de clips por escena y estilo visual definido.</p>
+</div>
+<div class="framework-step">
+<div class="step-num">2</div>
+<h4>Narrativa</h4>
+<p>Dividida en bloques: Presentaci&oacute;n &bull; Situaci&oacute;n &bull; Desarrollo &bull; Cierre o insight final.</p>
+</div>
+<div class="framework-step">
+<div class="step-num">3</div>
+<h4>Shot List</h4>
+<p>Contexto narrativo y visual. Tipo de plano. Prompts de imagen. C&aacute;mara, estilo, ambiente, prompts de video.</p>
+</div>
+<div class="framework-step">
+<div class="step-num">4</div>
+<h4>Edici&oacute;n / QC</h4>
+<p>Pens&aacute; como director/a. Evit&aacute; prompts gen&eacute;ricos. Mezclá tipos de planos y movimientos.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DE 0 A 100 -->
+<section class="dynamics" id="de-0-a-100">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-chart-line"></i> Mentalidad</div>
+<h2 class="section-title">De 0 a 100</h2>
+<div class="quote-block" style="margin-bottom:2rem">
+&ldquo;La calidad no depende del modelo. Depende del proceso.&rdquo;
+</div>
+<div class="dynamics-grid">
+<div class="dynamic-block">
+<h3><i class="fa-solid fa-face-meh"></i> Perfil Curioso/a</h3>
+<div class="dynamic-item"><i class="fa-solid fa-xmark" style="color:#eb5757"></i> Genera cosas sueltas, aisladas y sin contexto</div>
+<div class="dynamic-item"><i class="fa-solid fa-xmark" style="color:#eb5757"></i> Acepta r&aacute;pidamente el primer resultado que arroja la IA</div>
+<div class="dynamic-item"><i class="fa-solid fa-xmark" style="color:#eb5757"></i> Se frustra inmediatamente con los errores t&eacute;cnicos (anatom&iacute;a, textos)</div>
+</div>
+<div class="dynamic-block">
+<h3><i class="fa-solid fa-user-tie"></i> Perfil Profesional</h3>
+<div class="dynamic-item"><i class="fa-solid fa-check" style="color:#6fcf97"></i> Dise&ntilde;a procesos estructurados y pipelines predecibles</div>
+<div class="dynamic-item"><i class="fa-solid fa-check" style="color:#6fcf97"></i> Controla el estilo, la intenci&oacute;n, y refina iterativamente</div>
+<div class="dynamic-item"><i class="fa-solid fa-check" style="color:#6fcf97"></i> Documenta sus prompts, analiza los fallos e itera constantemente</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- STORYBOARD: CASO COMODIDAD -->
+<section class="applications" id="storyboard">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-film"></i> Caso Pr&aacute;ctico</div>
+<h2 class="section-title">Storyboard: &ldquo;Comodidad&rdquo;</h2>
+<p class="section-subtitle">Caso pr&aacute;ctico de narrativa visual. Escena por escena, plano por plano.</p>
+<div class="storyboard-grid">
+<div class="storyboard-card">
+<div class="storyboard-num">1</div>
+<p>Plano detalle del oso agarrando salm&oacute;n</p>
+<div class="locutor">Locutor: &ldquo;&iexcl;Absurdo?&rdquo;</div>
+</div>
+<div class="storyboard-card">
+<div class="storyboard-num">2</div>
+<p>Plano c&aacute;mara de seguridad: el oso caminando</p>
+</div>
+<div class="storyboard-card">
+<div class="storyboard-num">3</div>
+<p>El oso llega al final de la fila. La c&aacute;mara hace un travelling navegando por la larga fila</p>
+<div class="locutor">Locutor: &ldquo;Absurdo es que 9 de cada 10&hellip;&rdquo;</div>
+</div>
+<div class="storyboard-card">
+<div class="storyboard-num">4</div>
+<p>La c&aacute;mara se detiene en los primeros lugares de la fila, encontrando a una persona esperando en la caja</p>
+<div class="locutor">9 de cada 10 personas siguen haciendo filas en el supermercado</div>
+</div>
+<div class="storyboard-card">
+<div class="storyboard-num">5&ndash;7</div>
+<p>Escenas de cierre. Distintas opciones de variantes (OP1, OP2, OP3, OP4) para el mismo concepto narrativo</p>
+<div class="locutor">Locutor: &ldquo;Solt&aacute; el carrito&hellip;&rdquo;</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- LA IA COMO PIPELINE CREATIVO -->
+<section class="framework" id="pipeline-creativo">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-diagram-project"></i> Pipeline</div>
+<h2 class="section-title">La IA como Pipeline Creativo</h2>
+<p class="section-subtitle">El flujo de ensamble secuencial: cinco etapas de producci&oacute;n conectadas.</p>
+<div class="pipeline-grid">
+<div class="pipeline-card" data-step="1">
+<h4><i class="fa-solid fa-lightbulb"></i> Concepto</h4>
+<p class="pipeline-sub">Texto, idea matriz e investigaci&oacute;n</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>ChatGPT, Gemini, Claude</p>
+</div>
+<div class="pipeline-card" data-step="2">
+<h4><i class="fa-solid fa-image"></i> Imagen Base + Assets</h4>
+<p class="pipeline-sub">Direcci&oacute;n de arte pura y establecimiento de la est&eacute;tica visual</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>Grok, Meta, Reve, Aifreeforever, Modelscope</p>
+</div>
+<div class="pipeline-card" data-step="3">
+<h4><i class="fa-solid fa-music"></i> Narrativa / Audio</h4>
+<p class="pipeline-sub">Inyecci&oacute;n de la emoci&oacute;n humana</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>ElevenLabs, Mind Video, fish.audio</p>
+</div>
+<div class="pipeline-card" data-step="4">
+<h4><i class="fa-solid fa-video"></i> Video / Motion</h4>
+<p class="pipeline-sub">Generaci&oacute;n de impacto y retenci&oacute;n</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>Grok (Beta Video), Meta (Emu Video), Qwen</p>
+</div>
+<div class="pipeline-card" data-step="5">
+<h4><i class="fa-solid fa-file-export"></i> Output Final</h4>
+<p class="pipeline-sub">Exportaci&oacute;n, correcci&oacute;n de color y publicaci&oacute;n</p>
+<p class="pipeline-tools"><i class="fa-solid fa-arrow-right" style="color:var(--orange);margin-right:.4rem"></i>Premiere / After Effects</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- LAS 3 CAPAS -->
+<section class="concepts" id="tres-capas">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-layer-group"></i> Producci&oacute;n</div>
+<h2 class="section-title">Las 3 Capas</h2>
+<p class="section-subtitle">Imagen, audio y video: tres capas que se construyen secuencialmente.</p>
+<div class="layers-grid">
+<div class="layer-card capa1">
+<div class="layer-num">1</div>
+<h3>Imagen</h3>
+<div class="layer-sub">La Direcci&oacute;n de Arte</div>
+<p>La imagen base define la est&eacute;tica de todo el proyecto. Requiere prompts visuales muy detallados (estilo, luz, encuadre). La clave es la exploraci&oacute;n masiva de variantes antes de elegir y refinar (Upscale / Inpainting).</p>
+</div>
+<div class="layer-card capa2">
+<div class="layer-num">2</div>
+<h3>Audio</h3>
+<div class="layer-sub">La Capa Emocional</div>
+<p>El audio define c&oacute;mo se siente lo que vemos. Se requiere redactar un gui&oacute;n corto espec&iacute;ficamente adaptado para ser escuchado, marcando la intenci&oacute;n actoral (calma, seriedad), el ritmo de pausas y la selecci&oacute;n de la voz.</p>
+</div>
+<div class="layer-card capa3">
+<div class="layer-num">3</div>
+<h3>Video</h3>
+<div class="layer-sub">Impacto y Retenci&oacute;n</div>
+<p>La animaci&oacute;n de la est&aacute;tica. Implica decidir si el movimiento ser&aacute; sutil (cinemagraph) o din&aacute;mico, manteniendo clips cortos (3&ndash;5 seg). El objetivo cr&iacute;tico es mantener intacto el estilo de la imagen base.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ITERACIÓN -->
+<section class="dynamics" id="iteracion">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-rotate"></i> Proceso</div>
+<h2 class="section-title">Iteraci&oacute;n</h2>
+<p class="section-subtitle">Las cuatro preguntas que hay que hacerse en cada ciclo de revisi&oacute;n.</p>
+<div class="iteration-grid">
+<div class="iteration-card">
+<h4><i class="fa-solid fa-circle-check"></i> &iquest;Qu&eacute; funciona?</h4>
+<p>Analizar los aciertos. Identificar los puntos fuertes de la generaci&oacute;n actual para entender por qu&eacute; la IA los resolvi&oacute; bien y documentar ese patr&oacute;n para potenciarlo.</p>
+</div>
+<div class="iteration-card">
+<h4><i class="fa-solid fa-circle-xmark" style="color:#eb5757"></i> &iquest;Qu&eacute; no funciona?</h4>
+<p>El ojo cr&iacute;tico. Detectar fallas sutiles en la coherencia espacial, la iluminaci&oacute;n, la anatom&iacute;a humana o la fidelidad con la marca.</p>
+</div>
+<div class="iteration-card">
+<h4><i class="fa-solid fa-pen-to-square"></i> &iquest;Qu&eacute; cambiar&iacute;as?</h4>
+<p>El plan de correcci&oacute;n. Modificaciones en la estructura del prompt, el peso (weight) de las palabras, variaciones en el estilo, o ajustes t&eacute;cnicos en el ritmo del video.</p>
+</div>
+<div class="iteration-card">
+<h4><i class="fa-solid fa-lock"></i> &iquest;Qu&eacute; mantendr&iacute;as?</h4>
+<p>El ancla visual. Identificar qu&eacute; elementos clave conforman el ADN de la identidad y deben ser bloqueados (mediante seeds o referencias) para que no cambien en la pr&oacute;xima iteraci&oacute;n.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ASSETS & PROPS -->
+<section class="exercise" id="assets-props">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-cubes"></i> Assets</div>
+<h2 class="section-title">Assets &amp; Props</h2>
+<p class="section-subtitle">Los <strong style="color:var(--white)">assets</strong> son recursos digitales generales (modelos 3D, texturas, sonidos) para crear escenas. Los <strong style="color:var(--white)">props</strong> son objetos espec&iacute;ficos con los que los personajes interact&uacute;an, esenciales para la narrativa y el realismo.</p>
+<div class="exercise-vars">
+<div class="exercise-var">
+<strong><i class="fa-solid fa-grid-2"></i> Bento Grid</strong>
+<span>Prompt avanzado para generar un layout de 9 paneles con identidad de marca cohesiva</span>
+</div>
+<div class="exercise-var">
+<strong><i class="fa-solid fa-message"></i> Prompts.chat</strong>
+<span>Directorio de prompts profesionales para distintos casos de uso</span>
+</div>
+<div class="exercise-var">
+<strong><i class="fa-solid fa-wand-magic-sparkles"></i> Meigen AI</strong>
+<span>Generaci&oacute;n de imagen con control avanzado de estilo y composici&oacute;n</span>
+</div>
+</div>
+<div class="code-block" style="margin-top:2rem">Create ONE final image — a bento grid layout with nine unequal panels on 4:5 ratio.
+Panels vary in size. Clean tight gaps, no borders, no captions.
+High-end branding presentation aesthetic.
+
+Use all reference images as the visual identity base for [BRAND NAME].
+Extract the style, color palette, brushstroke language and illustration approach.
+
+FRAME 1 — Large hero: Logo. [BRAND NAME] in the lettering style from references.
+FRAME 2 — Medium: Menu or product cover with illustrations.
+FRAME 3 — Medium: Inside spread. Handwritten names with small illustrations.
+FRAME 4 — Large: Promotional poster with hero illustration. Bold, graphic.
+FRAME 5 — Small: Single hero element. Short hand-lettered phrase.
+FRAME 6 — Small: Table card or small collateral.
+FRAME 7 — Medium: Tote bag or merch mockup with illustration.
+FRAME 8 — Medium: Outdoor poster. Multiple elements, brand name prominent.
+FRAME 9 — Light brand sheet: Logo lockup, color swatches, key illustrations.
+
+STYLE: Bento grid, editorial, design-portfolio quality. Cohesive across all panels.
+OUTPUT: Single image, clean bento grid, no watermarks.</div>
+</div>
+</section>
+
+<!-- PLATAFORMAS -->
+<section class="platforms" id="plataformas">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-toolbox"></i> Herramientas</div>
+<h2 class="section-title">Herramientas por Etapas</h2>
+<p class="section-subtitle">El ecosistema de IA para cada etapa del pipeline de producci&oacute;n.</p>
+<div class="platform-section">
+<h3><i class="fa-solid fa-lightbulb"></i> Concepto <span class="badge">Texto</span></h3>
+<div class="platform-grid">
+<a href="https://chat.openai.com" target="_blank" class="platform-link"><i class="fa-solid fa-robot"></i> ChatGPT</a>
+<a href="https://gemini.google.com" target="_blank" class="platform-link"><i class="fa-brands fa-google"></i> Gemini</a>
+<a href="https://claude.ai" target="_blank" class="platform-link"><i class="fa-solid fa-brain"></i> Claude</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-image"></i> Visual <span class="badge">Imagen</span></h3>
+<div class="platform-grid">
+<a href="https://www.grok.com" target="_blank" class="platform-link"><i class="fa-brands fa-x-twitter"></i> Grok</a>
+<a href="https://www.meta.ai" target="_blank" class="platform-link"><i class="fa-brands fa-meta"></i> Meta AI</a>
+<a href="https://www.reve.com" target="_blank" class="platform-link"><i class="fa-solid fa-paintbrush"></i> Reve</a>
+<a href="https://www.meigen.ai/" target="_blank" class="platform-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Meigen AI</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-music"></i> Sonoro <span class="badge">Audio</span></h3>
+<div class="platform-grid">
+<a href="https://www.elevenlabs.com" target="_blank" class="platform-link"><i class="fa-solid fa-microphone"></i> ElevenLabs</a>
+<a href="https://fish.audio" target="_blank" class="platform-link"><i class="fa-solid fa-fish"></i> fish.audio</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-video"></i> Movimiento <span class="badge">Video</span></h3>
+<div class="platform-grid">
+<a href="https://www.grok.com" target="_blank" class="platform-link"><i class="fa-brands fa-x-twitter"></i> Grok Beta Video</a>
+<a href="https://www.meta.ai" target="_blank" class="platform-link"><i class="fa-brands fa-meta"></i> Meta Emu Video</a>
+<a href="https://chat.qwen.ai/" target="_blank" class="platform-link"><i class="fa-solid fa-robot"></i> Qwen</a>
+<a href="https://www.higgsfield.com" target="_blank" class="platform-link"><i class="fa-solid fa-person-walking"></i> Higgsfield</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- RECURSOS -->
+<section class="resources" id="recursos">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-bookmark"></i> Recursos</div>
+<h2 class="section-title">Recursos y Referencias</h2>
+<p class="section-subtitle">Links y referencias compartidos en la Clase 5.</p>
+<div class="resource-grid">
+<a href="https://prompts.chat/" target="_blank" class="resource-link"><i class="fa-solid fa-message"></i> <span>Prompts.chat &mdash; Directorio de prompts</span></a>
+<a href="https://www.meigen.ai/" target="_blank" class="resource-link"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>Meigen AI &mdash; Generaci&oacute;n de imagen</span></a>
+<a href="https://x.com/AmirMushich/status/2019073081881293302" target="_blank" class="resource-link"><i class="fa-brands fa-x-twitter"></i> <span>@AmirMushich &mdash; Meigen AI demo</span></a>
+<a href="https://www.instagram.com/p/DWy8CHVAFhA/" target="_blank" class="resource-link"><i class="fa-brands fa-instagram"></i> <span>Instagram &mdash; Referencia visual</span></a>
+<a href="https://www.linkedin.com/posts/simon-meyer-976339160_how-to-come-up-with-great-ideas-for-ai-ugcPost-7448028447513358337-Bm7f" target="_blank" class="resource-link"><i class="fa-brands fa-linkedin"></i> <span>Simon Meyer &mdash; C&oacute;mo tener ideas para IA</span></a>
+</div>
+<div class="quote-block" style="margin-top:2rem">
+&ldquo;Est&aacute; bien crear pel&iacute;culas malas. No esperes la idea perfecta. Te vas a inspirar en el proceso, y algunas de mis mejores pelis empezaron como malas ideas.&rdquo;
+<span class="quote-source">&mdash; Simon Meyer &mdash; <a href="https://www.linkedin.com/posts/simon-meyer-976339160_how-to-come-up-with-great-ideas-for-ai-ugcPost-7448028447513358337-Bm7f" target="_blank" style="color:var(--orange)">LinkedIn</a></span>
+</div>
+</div>
+</section>
+
+<!-- PRESENTACIÓN COMPLETA -->
+<section class="presentation" id="presentacion">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-desktop"></i> Slides</div>
+<h2 class="section-title">Presentaci&oacute;n Completa</h2>
+<p class="section-subtitle">Naveg&aacute; las diapositivas de la Clase 5 directamente desde ac&aacute;.</p>
+<div class="pres-wrapper">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRM3GkGX8jOr-HU5RGvbSqm76Z8n5iE6J2woOBjc-ydIaCB2Da_CVfUuwEAvgIcqXjpMzDeYZfTdJ2K/pubembed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+</div>
+</section>
+
+<!-- CIERRE -->
+<section class="closing" id="cierre">
+<div class="container" style="text-align:center">
+<div class="section-tag"><i class="fa-solid fa-flag-checkered"></i> Cierre</div>
+<h2 class="section-title">Cierre &amp; Pr&oacute;ximos Pasos</h2>
+<div class="closing-grid">
+<div class="closing-block">
+<h3><i class="fa-solid fa-check-circle"></i> Repaso</h3>
+<ul>
+<li>Definir Qu&eacute;, Qui&eacute;n, Para qu&eacute; y Formato antes de tocar el modelo</li>
+<li>Arquitectura del proyecto: Concepto &rarr; Assets &rarr; Pipeline &rarr; Control</li>
+<li>Las 3 capas: Imagen (Arte) + Audio (Emoci&oacute;n) + Video (Impacto)</li>
+<li>Iterar con criterio: documentar, analizar, corregir y anclar</li>
+</ul>
+</div>
+<div class="closing-block">
+<h3><i class="fa-solid fa-clipboard-check"></i> Tarea</h3>
+<ul>
+<li>Definir un concepto propio y completar el Qu&eacute; / Qui&eacute;n / Para qu&eacute; / Formato</li>
+<li>Generar la imagen base y el audio de un asset propio</li>
+<li>Documentar el proceso: prompts usados, variantes descartadas, versi&oacute;n final elegida</li>
+</ul>
+</div>
+</div>
+<p style="margin-top:2.5rem;color:var(--gray-light);font-size:.95rem">
+<strong style="color:var(--orange)">Pr&oacute;xima sesi&oacute;n:</strong> Presentaci&oacute;n de proyectos finales y cierre del m&oacute;dulo (Clase 6)
+</p>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>ITU &middot; UNCuyo &middot; 2026 &mdash; Inteligencia Artificial: Imagen, Audio y Video &mdash; Docente: <a href="https://www.linkedin.com/in/franerian/" target="_blank">Francisco Erian</a></p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('animate');
+observer.unobserve(entry.target);
+}
+});
+}, { threshold: 0.1 });
+document.querySelectorAll('.concept-card, .roadmap-item, .framework-step, .app-card, .pipeline-card, .layer-card, .iteration-card, .storyboard-card').forEach(el => {
+observer.observe(el);
+});
+</script>
+</body>
+</html>
