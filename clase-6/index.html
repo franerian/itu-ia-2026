@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITU 2026 - Inteligencia Artificial: Clase 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--orange:#F5A623;
+--orange-dark:#E09000;
+--orange-light:#FFD080;
+--dark:#1a1a1a;
+--darker:#111;
+--gray:#2a2a2a;
+--gray-light:#888;
+--white:#fff;
+--text:#e0e0e0;
+--font-main:'Inter',sans-serif;
+--font-title:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-main);background:var(--darker);color:var(--text);line-height:1.6;width:100%;overflow-x:hidden}
+
+/* HERO */
+.hero{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 50%,#1a1a1a 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23222" width="100" height="100"/><circle fill="%23282828" cx="50" cy="50" r="40"/></svg>') repeat;background-size:100px;opacity:.3}
+.hero::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 70% 50%,rgba(245,166,35,.12) 0%,transparent 60%);pointer-events:none}
+.hero-content{position:relative;z-index:2;width:100%;max-width:1200px;padding:2rem;display:flex;flex-wrap:wrap;align-items:center;gap:3rem}
+.hero-text{flex:1;min-width:320px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);border-radius:50px;padding:.4rem 1rem;font-size:.8rem;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:1.5rem}
+.hero-text h1{font-family:var(--font-title);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;color:var(--white);line-height:1.05;margin-bottom:.5rem}
+.hero-text h1 span{background:linear-gradient(135deg,var(--orange),var(--orange-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-text .subtitle{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--gray-light);margin-bottom:2rem;font-weight:300;max-width:560px}
+.hero-visual{flex:1;min-width:300px;display:flex;justify-content:center;align-items:center}
+.hero-icon-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:340px}
+.hero-icon-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.8rem 1.2rem;text-align:center;transition:all .3s ease}
+.hero-icon-card:hover{border-color:rgba(245,166,35,.3);transform:translateY(-4px)}
+.hero-icon-card i{font-size:2rem;color:var(--orange);margin-bottom:.6rem;display:block}
+.hero-icon-card span{font-size:.8rem;color:var(--gray-light);font-weight:500}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .3s ease;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:var(--dark);box-shadow:0 4px 20px rgba(245,166,35,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(245,166,35,.5)}
+.btn-outline{background:transparent;border:2px solid rgba(255,255,255,.2);color:var(--white)}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+
+/* SECTIONS */
+section{width:100%;padding:5rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);border-radius:50px;padding:.3rem .9rem;font-size:.75rem;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem}
+.section-title{font-family:var(--font-title);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--white);margin-bottom:1rem}
+.section-subtitle{color:var(--gray-light);max-width:700px;margin-bottom:3rem;font-size:1.05rem}
+
+/* ROADMAP */
+.roadmap{background:var(--dark)}
+.roadmap-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.roadmap-col h3{font-family:var(--font-title);font-size:1.3rem;color:var(--orange);margin-bottom:1.2rem;font-weight:700}
+.roadmap-item{display:flex;align-items:flex-start;gap:1rem;padding:1rem;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.05);margin-bottom:.8rem;transition:border-color .3s}
+.roadmap-item:hover{border-color:rgba(245,166,35,.3)}
+.roadmap-num{min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.15);color:var(--orange);font-weight:700;font-size:.85rem;border-radius:8px;flex-shrink:0}
+.roadmap-item p{font-size:.95rem;color:var(--text)}
+
+/* CONCEPTS */
+.concepts{background:var(--darker)}
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
+.concept-card{background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:2rem;transition:all .3s ease}
+.concept-card:hover{transform:translateY(-4px);border-color:rgba(245,166,35,.2);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.concept-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.12);border-radius:12px;color:var(--orange);font-size:1.3rem;margin-bottom:1.2rem}
+.concept-card h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;margin-bottom:.8rem;font-weight:700}
+.concept-card p{color:var(--gray-light);font-size:.93rem;line-height:1.7}
+
+/* FRAMEWORK */
+.framework{background:var(--dark)}
+
+/* VOICE METHODS */
+.voice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+.voice-card{padding:2rem;border-radius:16px;border:1px solid rgba(255,255,255,.06);transition:all .3s;position:relative;overflow:hidden}
+.voice-card::before{content:'';position:absolute;inset:0;opacity:.04;transition:opacity .3s}
+.voice-card:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.voice-card.casting{background:linear-gradient(145deg,rgba(245,166,35,.08),rgba(245,166,35,.02))}
+.voice-card.casting:hover{border-color:rgba(245,166,35,.3)}
+.voice-card.cloning{background:linear-gradient(145deg,rgba(100,200,255,.08),rgba(100,200,255,.02))}
+.voice-card.cloning:hover{border-color:rgba(100,200,255,.3)}
+.voice-card.design{background:linear-gradient(145deg,rgba(180,100,255,.08),rgba(180,100,255,.02))}
+.voice-card.design:hover{border-color:rgba(180,100,255,.3)}
+.voice-card.escucha{background:linear-gradient(145deg,rgba(100,255,180,.08),rgba(100,255,180,.02))}
+.voice-card.escucha:hover{border-color:rgba(100,255,180,.3)}
+.voice-card .v-icon{font-size:2rem;margin-bottom:1rem}
+.voice-card.casting .v-icon{color:var(--orange)}
+.voice-card.cloning .v-icon{color:#64c8ff}
+.voice-card.design .v-icon{color:#b464ff}
+.voice-card.escucha .v-icon{color:#64ffb4}
+.voice-card h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;margin-bottom:.3rem}
+.voice-card .v-sub{font-size:.75rem;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:.8rem}
+.voice-card.casting .v-sub{color:var(--orange)}
+.voice-card.cloning .v-sub{color:#64c8ff}
+.voice-card.design .v-sub{color:#b464ff}
+.voice-card.escucha .v-sub{color:#64ffb4}
+.voice-card p{color:var(--gray-light);font-size:.88rem;line-height:1.7}
+
+/* DYNAMICS */
+.dynamics{background:var(--darker)}
+.dynamics-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.dynamic-block{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:2rem}
+.dynamic-block h3{font-family:var(--font-title);color:var(--orange);font-size:1.2rem;margin-bottom:1.2rem;font-weight:700;display:flex;align-items:center;gap:.6rem}
+.dynamic-item{display:flex;align-items:flex-start;gap:.8rem;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem}
+.dynamic-item:last-child{border-bottom:none}
+.dynamic-item i{color:var(--orange);font-size:.85rem;min-width:16px;margin-top:.15rem}
+
+/* APP GRID */
+.applications{background:var(--dark)}
+.app-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.app-card{padding:2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;transition:all .3s;text-align:center}
+.app-card:hover{border-color:rgba(245,166,35,.2);transform:translateY(-3px)}
+.app-card .app-icon{font-size:2rem;color:var(--orange);margin-bottom:1rem}
+.app-card h3{font-family:var(--font-title);color:var(--white);font-size:1.1rem;margin-bottom:.6rem}
+.app-card p{color:var(--gray-light);font-size:.88rem;line-height:1.6}
+
+/* COMPARISON: AVATAR vs AGENTE */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.vs-card{padding:2.5rem;border-radius:16px;border:1px solid rgba(255,255,255,.06);transition:all .3s}
+.vs-card.avatar{background:linear-gradient(145deg,rgba(245,166,35,.08),rgba(245,166,35,.02))}
+.vs-card.agente{background:linear-gradient(145deg,rgba(100,200,255,.08),rgba(100,200,255,.02))}
+.vs-card:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.vs-card .vs-icon{font-size:2.5rem;margin-bottom:1rem}
+.vs-card h3{font-family:var(--font-title);color:var(--white);font-size:1.4rem;margin-bottom:.8rem}
+.vs-card p{color:var(--gray-light);font-size:.93rem;line-height:1.7}
+.vs-card ul{list-style:none;padding:0;margin-top:1rem}
+.vs-card li{padding:.4rem 0;font-size:.88rem;color:var(--text);display:flex;align-items:flex-start;gap:.6rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.vs-card li:last-child{border-bottom:none}
+.vs-card.avatar li i{color:var(--orange)}
+.vs-card.agente li i{color:#64c8ff}
+
+/* HEYGEN / ELEVENLABS FEATURE CARDS */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.feature-card{padding:2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;transition:all .3s}
+.feature-card:hover{border-color:rgba(245,166,35,.2);transform:translateY(-3px)}
+.feature-card h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.feature-card h3 i{color:var(--orange)}
+.feature-item{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.88rem;color:var(--text)}
+.feature-item:last-child{border-bottom:none}
+.feature-item i{color:var(--orange);font-size:.8rem;min-width:14px;margin-top:.2rem}
+
+/* MUSIC PARAMS */
+.music-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.music-card{text-align:center;padding:2rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;transition:all .3s}
+.music-card:hover{border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.04)}
+.music-card i{font-size:2rem;color:var(--orange);margin-bottom:.8rem;display:block}
+.music-card h4{font-family:var(--font-title);color:var(--white);margin-bottom:.5rem;font-size:1rem}
+.music-card p{color:var(--gray-light);font-size:.85rem;line-height:1.5}
+
+/* RESOURCES */
+.resources{background:var(--darker)}
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+.resource-link{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;text-decoration:none;color:var(--text);transition:all .3s}
+.resource-link:hover{border-color:rgba(245,166,35,.3);color:var(--white);background:rgba(245,166,35,.05)}
+.resource-link i{color:var(--orange);font-size:1.2rem;min-width:24px;text-align:center}
+.resource-link span{font-size:.9rem}
+
+/* PLATFORMS */
+.platforms{background:var(--dark)}
+.platform-section{margin-bottom:2.5rem}
+.platform-section h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;margin-bottom:1rem;font-weight:700;display:flex;align-items:center;gap:.6rem}
+.platform-section h3 .badge{background:rgba(245,166,35,.15);color:var(--orange);padding:.2rem .7rem;border-radius:20px;font-size:.7rem;font-weight:600;text-transform:uppercase}
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.platform-link{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;text-decoration:none;color:var(--text);transition:all .3s;font-size:.9rem}
+.platform-link:hover{border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.05);color:var(--white)}
+.platform-link i{color:var(--orange);font-size:1.1rem;min-width:20px;text-align:center}
+
+/* PRESENTATION */
+.presentation{background:var(--darker)}
+.pres-wrapper{position:relative;width:100%;padding-bottom:58.5%;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(245,166,35,.05)}
+.pres-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+/* QUOTE */
+.quote-block{background:rgba(245,166,35,.05);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:1.5rem 2rem;margin:2rem 0;font-style:italic;color:var(--text);font-size:.95rem;line-height:1.8}
+.quote-block .quote-source{font-style:normal;font-size:.8rem;color:var(--orange);margin-top:.8rem;display:block}
+
+/* CLOSING */
+.closing{background:linear-gradient(135deg,var(--dark),var(--darker));text-align:center}
+.closing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;text-align:left;margin-top:2rem;max-width:900px;margin-left:auto;margin-right:auto}
+.closing-block{padding:2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px}
+.closing-block h3{font-family:var(--font-title);color:var(--orange);font-size:1.1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.closing-block ul{list-style:none;padding:0}
+.closing-block li{padding:.4rem 0;font-size:.9rem;color:var(--text);display:flex;align-items:flex-start;gap:.5rem}
+.closing-block li::before{content:'\2192';color:var(--orange);font-weight:700}
+
+/* FOOTER */
+.footer{background:var(--darker);border-top:1px solid rgba(255,255,255,.06);padding:2rem;text-align:center}
+.footer p{color:var(--gray-light);font-size:.8rem}
+.footer a{color:var(--orange);text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.roadmap-grid,.dynamics-grid,.vs-grid,.feature-grid,.closing-grid,.app-grid,.music-grid{grid-template-columns:1fr}
+.hero-content{flex-direction:column;text-align:center}
+.hero-cta{justify-content:center}
+}
+@media(max-width:480px){
+section{padding:3rem 1rem}
+.hero-icon-grid{grid-template-columns:1fr 1fr;gap:.8rem;max-width:280px}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.animate{animation:fadeUp .6s ease forwards;opacity:0}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--darker)}
+::-webkit-scrollbar-thumb{background:var(--gray);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gray-light)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+<div class="hero-text">
+<div class="hero-badge"><i class="fa-solid fa-microchip"></i> ITU &middot; UNCuyo &middot; 2026</div>
+<h1>Audio, Voz<br><span>&amp; Avatares</span></h1>
+<p class="subtitle">Clase 6: Audio generativo, voz como sistema de dise&ntilde;o, m&uacute;sica generativa y agentes con avatar.</p>
+<div class="hero-cta">
+<a href="#presentacion" class="btn btn-primary"><i class="fa-solid fa-play"></i> Ver Presentaci&oacute;n</a>
+<a href="#hoja-de-ruta" class="btn btn-outline"><i class="fa-solid fa-map"></i> Hoja de Ruta</a>
+</div>
+</div>
+<div class="hero-visual">
+<div class="hero-icon-grid">
+<div class="hero-icon-card"><i class="fa-solid fa-microphone-lines"></i><span>Voz</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-music"></i><span>M&uacute;sica</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-masks-theater"></i><span>Avatar</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-robot"></i><span>Agente</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PRESENTACIÓN HERO -->
+<section class="presentation" id="presentacion-hero" style="padding:3rem 2rem">
+<div class="container">
+<div class="pres-wrapper">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSsvwfXguTvrWA5kT4DEdbpBHYV4DJD2CEjlrA231jq4SRQrANLSGwE_cRdIz_YfCjP7xyI4VA1lSim/pubembed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+</div>
+</section>
+
+<!-- HOJA DE RUTA -->
+<section class="roadmap" id="hoja-de-ruta">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-route"></i> Programa</div>
+<h2 class="section-title">Hoja de Ruta &mdash; Clase 6</h2>
+<p class="section-subtitle">Modelos de voz y audio, workflows generativos y avatares inteligentes.</p>
+<div class="roadmap-grid">
+<div class="roadmap-col">
+<h3><i class="fa-solid fa-1"></i> Primera Hora</h3>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-microphone"></i></div><p><strong>Modelos de Voz &amp; Audio:</strong> Capacidades actuales y control del estado del arte</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-sliders"></i></div><p><strong>Control e Iteraci&oacute;n:</strong> C&oacute;mo lograr los resultados que queremos y reforzar consistencia</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-wave-square"></i></div><p><strong>Audio Generativo:</strong> Workflows y limitaciones actuales</p></div>
+</div>
+<div class="roadmap-col">
+<h3><i class="fa-solid fa-2"></i> Segunda Hora</h3>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-pen-nib"></i></div><p><strong>Prompts + Gui&oacute;nes:</strong> Para construir nuestra propuesta sonora</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-compass-drafting"></i></div><p><strong>Pr&aacute;ctica Guiada:</strong> Producci&oacute;n paso a paso</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-id-card"></i></div><p><strong>Desarrollo de Assets:</strong> Generaci&oacute;n de una voz a partir de un concepto</p></div>
+</div>
+</div>
+<div class="quote-block" style="margin-top:2rem">
+<strong style="color:var(--orange)">Objetivo Principal:</strong> No se trata de generar resultados lindos, sino de comprender c&oacute;mo dominar y controlar el modelo. &iexcl;De nuevo!
+</div>
+</div>
+</section>
+
+<!-- AUDIO GENERATIVO -->
+<section class="concepts" id="audio-generativo">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-wave-square"></i> Fundamento</div>
+<h2 class="section-title">Audio Generativo</h2>
+<p class="section-subtitle">El mismo paradigma que la imagen y el video: modelos interpretando un prompt.</p>
+<div class="concepts-grid">
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-equals"></i></div>
+<h3>Mismo Paradigma</h3>
+<p>La generaci&oacute;n de audio funciona bajo la misma l&oacute;gica que la imagen y el video: modelos interpretando un prompt. Es un sistema estad&iacute;stico que responde a tus instrucciones.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-brain"></i></div>
+<h3>Modelos Generativos</h3>
+<p>No reproducen un audio pregrabado, sino que crean voces nuevas en tiempo real. Analizan el lenguaje, intenci&oacute;n y el contexto para arrojar resultados naturales.</p>
+</div>
+<div class="concept-card">
+<div class="concept-icon"><i class="fa-solid fa-rotate"></i></div>
+<h3>Iteraci&oacute;n Constante</h3>
+<p>El input principal es el texto + par&aacute;metros (voz, tono, velocidad). El proceso no es lineal: generamos, escuchamos cr&iacute;ticamente, ajustamos y volvemos a generar.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- VOZ COMO SISTEMA DE DISEÑO -->
+<section class="framework" id="voz-sistema">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-microphone-lines"></i> Concepto</div>
+<h2 class="section-title">Voz como Sistema de Dise&ntilde;o</h2>
+<p class="section-subtitle">Texto &rarr; Voz: la escritura es direcci&oacute;n actoral.</p>
+<div class="dynamics-grid" style="margin-bottom:3rem">
+<div class="dynamic-block">
+<h3><i class="fa-solid fa-id-badge"></i> Voz = Identidad</h3>
+<div class="dynamic-item"><i class="fa-solid fa-circle-dot"></i> Define qui&eacute;n habla. Es el equivalente directo a elegir un actor.</div>
+<div class="dynamic-item"><i class="fa-solid fa-circle-dot"></i> Cambia por completo la percepci&oacute;n del contenido, aun con el mismo gui&oacute;n.</div>
+<div class="dynamic-item"><i class="fa-solid fa-circle-dot"></i> Escribir para esa voz es dirigir una actuaci&oacute;n.</div>
+<div class="dynamic-item"><i class="fa-solid fa-circle-dot"></i> La forma en que se estructura una frase influye directamente en c&oacute;mo se interpreta.</div>
+</div>
+<div class="dynamic-block">
+<h3><i class="fa-solid fa-palette"></i> Voz = Estilo &amp; Narrativa</h3>
+<div class="dynamic-item"><i class="fa-solid fa-circle-dot"></i> <strong>Estilo:</strong> Una voz puede ser institucional, emocional, publicitaria o narrativa.</div>
+<div class="dynamic-item"><i class="fa-solid fa-circle-dot"></i> Es una decisi&oacute;n est&eacute;tica y estrat&eacute;gica, no solo t&eacute;cnica.</div>
+<div class="dynamic-item"><i class="fa-solid fa-circle-dot"></i> <strong>Narrativa:</strong> No solo comunica la informaci&oacute;n de base.</div>
+<div class="dynamic-item"><i class="fa-solid fa-circle-dot"></i> Construye la historia, define el tono general y ancla el relato para el espectador.</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- MÉTODOS DE GENERACIÓN -->
+<section class="concepts" id="metodos-generacion">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-list-check"></i> M&eacute;todos</div>
+<h2 class="section-title">M&eacute;todos de Generaci&oacute;n de Voz</h2>
+<p class="section-subtitle">Cuatro enfoques para generar audio con IA, cada uno con su caso de uso.</p>
+<div class="voice-grid">
+<div class="voice-card casting">
+<div class="v-icon"><i class="fa-solid fa-people-group"></i></div>
+<h3>Cat&aacute;logo Existente</h3>
+<div class="v-sub">Casting</div>
+<p>Plataformas que ofrecen cientos de voces listas para usar. Elegir una voz es hacer un casting veloz. Permite testear ideas en minutos.</p>
+</div>
+<div class="voice-card cloning">
+<div class="v-icon"><i class="fa-solid fa-copy"></i></div>
+<h3>Voice Cloning</h3>
+<div class="v-sub">R&eacute;plica de Voz Real</div>
+<p>Crea una versi&oacute;n digital humana copiando tono y acento desde unos pocos segundos de muestra. Altamente escalable a otros idiomas y proyectos.</p>
+</div>
+<div class="voice-card design">
+<div class="v-icon"><i class="fa-solid fa-wand-sparkles"></i></div>
+<h3>Voice Design</h3>
+<div class="v-sub">Voz desde Prompt</div>
+<p>Se crea una voz 100% nueva describiendo c&oacute;mo deber&iacute;a sonar (edad, emoci&oacute;n, aspereza). No replica a nadie: genera una identidad nueva.</p>
+</div>
+<div class="voice-card escucha">
+<div class="v-icon"><i class="fa-solid fa-ear-listen"></i></div>
+<h3>Escucha Cr&iacute;tica</h3>
+<div class="v-sub">Iteraci&oacute;n</div>
+<p>No hay resultado final en el primer clic. La habilidad clave es detectar qu&eacute; funciona y qu&eacute; no en cada generaci&oacute;n para refinarla.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- EL ROL DEL AUDIO -->
+<section class="applications" id="rol-audio">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-headphones"></i> Aplicaciones</div>
+<h2 class="section-title">El Rol del Audio en la IA</h2>
+<p class="section-subtitle">Tres dimensiones del audio generativo en la producci&oacute;n audiovisual.</p>
+<div class="app-grid">
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-comment-dots"></i></div>
+<h3>Voz en Off</h3>
+<p>Gu&iacute;a y Sentido. Organiza la informaci&oacute;n y orienta al espectador. Aporta significado, contexto profundo y define el mood de una escena.</p>
+</div>
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-face-grin-tongue-squint"></i></div>
+<h3>Speech + Lip Sync</h3>
+<p>Personajes Cre&iacute;bles. Primero se genera el audio perfecto, y luego se fuerza a un modelo de imagen a ajustar el movimiento labial para que coincida con la locuci&oacute;n.</p>
+</div>
+<div class="app-card">
+<div class="app-icon"><i class="fa-solid fa-volume-high"></i></div>
+<h3>Dise&ntilde;o Sonoro</h3>
+<p>Construcci&oacute;n de Realidad. FX, foley y ambientes generados o curados. El sonido de fondo es lo que hace que una imagen generada se perciba como &ldquo;real&rdquo;.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- MÚSICA GENERATIVA -->
+<section class="framework" id="musica-generativa">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-music"></i> M&uacute;sica</div>
+<h2 class="section-title">M&uacute;sica Generativa</h2>
+<p class="section-subtitle">Texto &rarr; M&uacute;sica. Describ&iacute;s el g&eacute;nero, la emoci&oacute;n, el tempo y el contexto, y el sistema construye una pieza musical completa (Suno / Flowmusic).</p>
+<div class="music-grid">
+<div class="music-card">
+<i class="fa-solid fa-guitar"></i>
+<h4>Estilo</h4>
+<p>Define g&eacute;neros precisos: cl&aacute;sica, pop, rock, jazz, ambient. El g&eacute;nero musical cumple el mismo rol que el estilo fotogr&aacute;fico en un prompt visual.</p>
+</div>
+<div class="music-card">
+<i class="fa-solid fa-heart-pulse"></i>
+<h4>Mood</h4>
+<p>&Eacute;pico, melanc&oacute;lico, energ&eacute;tico. La m&uacute;sica dicta c&oacute;mo se siente una escena y garantiza la coherencia narrativa del proyecto.</p>
+</div>
+<div class="music-card">
+<i class="fa-solid fa-drum"></i>
+<h4>Construcci&oacute;n Instrumental</h4>
+<p>Canciones completas con intro, verso y coro. Incluso con letra. Se abandona la fricci&oacute;n de buscar temas de stock libres de derechos.</p>
+</div>
+</div>
+<div class="quote-block" style="margin-top:2rem">
+Con la IA asumimos tambi&eacute;n el rol de compositor/a, t&eacute;cnico/a y actor/actriz. <strong style="color:var(--orange)">El control creativo est&aacute; en definir condiciones.</strong>
+</div>
+</div>
+</section>
+
+<!-- AVATARES VS AGENTES -->
+<section class="dynamics" id="avatares-agentes">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-masks-theater"></i> Interfaz</div>
+<h2 class="section-title">Agentes y Avatares</h2>
+<p class="section-subtitle">Cuando se combinan, el avatar aporta presencia y el agente aporta inteligencia.</p>
+<div class="vs-grid">
+<div class="vs-card avatar">
+<div class="vs-icon"><i class="fa-solid fa-masks-theater" style="color:var(--orange)"></i></div>
+<h3>Avatar</h3>
+<p>La interfaz visible o audible. Un personaje que habla, muestra informaci&oacute;n o presenta contenido. Es lo que el usuario percibe como &ldquo;la cara&rdquo; del sistema.</p>
+<ul>
+<li><i class="fa-solid fa-check"></i> Transmite contenido: explica, narra, representa</li>
+<li><i class="fa-solid fa-check"></i> Puede ser un output fijo (video, presentaci&oacute;n)</li>
+<li><i class="fa-solid fa-check"></i> Su funci&oacute;n es comunicar con claridad y presencia visual</li>
+</ul>
+</div>
+<div class="vs-card agente">
+<div class="vs-icon"><i class="fa-solid fa-robot" style="color:#64c8ff"></i></div>
+<h3>Agente</h3>
+<p>El sistema que piensa, decide y responde. Procesa informaci&oacute;n, entiende contexto y genera acciones en tiempo real.</p>
+<ul>
+<li><i class="fa-solid fa-check"></i> Din&aacute;mico: reacciona, conversa y se adapta</li>
+<li><i class="fa-solid fa-check"></i> Puede agendar citas, enviar correos, modificar CRM</li>
+<li><i class="fa-solid fa-check"></i> Dise&ntilde;ado para dialogar y ejecutar tareas</li>
+</ul>
+</div>
+</div>
+<div class="quote-block" style="margin-top:2rem">
+Los avatares surgen primero en videojuegos como representaciones visuales. Los agentes tienen origen en los Chatbots que simulaban conversaciones simples. <strong style="color:var(--orange)">Hoy ambos conceptos se integran.</strong>
+</div>
+</div>
+</section>
+
+<!-- HEYGEN Y ELEVENLABS -->
+<section class="applications" id="heygen-elevenlabs">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-gear"></i> Plataformas Clave</div>
+<h2 class="section-title">HeyGen &amp; ElevenLabs</h2>
+<p class="section-subtitle">Dos ecosistemas complementarios: uno desde la imagen, otro desde la voz.</p>
+<div class="feature-grid">
+<div class="feature-card">
+<h3><i class="fa-solid fa-person-rays"></i> HeyGen: Avatares</h3>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> El presentador digital. Convierte texto en video autom&aacute;ticamente, gesticulando y sincronizando labios sin c&aacute;mara.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> <strong>Digital Twin:</strong> Clonaci&oacute;n de imagen para crear una versi&oacute;n digital de uno mismo.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> <strong>Lip Sync Autom&aacute;tico:</strong> Coherencia instant&aacute;nea entre la voz generada y la gesticulaci&oacute;n facial.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> <strong>Multilenguaje:</strong> Un mismo presentador hablando en 40 idiomas sin re-grabaci&oacute;n.</div>
+</div>
+<div class="feature-card">
+<h3><i class="fa-solid fa-microphone-lines"></i> HeyGen: Agentes desde el Video</h3>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> <strong>Automatizaci&oacute;n Continua:</strong> Workflow que crea contenido de forma aut&oacute;noma desde bases de datos, CRM o trigger web.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> Script + L&oacute;gica para generar cientos de videos personalizados en tiempo real.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> El cambio de paradigma: pasar de &ldquo;hacer un video&rdquo; a &ldquo;dise&ntilde;ar sistemas que hacen videos&rdquo;.</div>
+</div>
+</div>
+<div class="feature-grid" style="margin-top:2rem">
+<div class="feature-card">
+<h3><i class="fa-solid fa-ear-listen"></i> ElevenLabs: Agentes desde el Audio</h3>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> ElevenLabs = El cerebro + la voz. El avatar comienza por la identidad vocal, no visual.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> <strong>Agentes Conversacionales:</strong> Sistemas que escuchan, entienden y responden en tiempo real con baj&iacute;sima latencia.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> <strong>Toma de Acci&oacute;n:</strong> No solo conversan; pueden agendar citas, enviar correos o modificar un CRM mientras hablan.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> De contenido a interacci&oacute;n: piezas preg rabadas est&aacute;ticas &rarr; interacci&oacute;n org&aacute;nica con el usuario.</div>
+</div>
+<div class="feature-card">
+<h3><i class="fa-solid fa-cube"></i> 3D Generativo</h3>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> La siguiente frontera: objetos y escenas tridimensionales generadas desde texto o imagen.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> Hunyuan 3D (Tencent): generaci&oacute;n de modelos 3D de alta calidad desde prompt o imagen de referencia.</div>
+<div class="feature-item"><i class="fa-solid fa-circle-dot"></i> Aplica el mismo paradigma de control por prompt que ya conocemos de imagen y video.</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PLATAFORMAS -->
+<section class="platforms" id="plataformas">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-toolbox"></i> Herramientas</div>
+<h2 class="section-title">Plataformas y Herramientas</h2>
+<p class="section-subtitle">Ecosistema de herramientas de audio y avatar mencionadas en la Clase 6.</p>
+<div class="platform-section">
+<h3><i class="fa-solid fa-microphone"></i> Voz &amp; Audio <span class="badge">TTS</span></h3>
+<div class="platform-grid">
+<a href="https://www.elevenlabs.com" target="_blank" class="platform-link"><i class="fa-solid fa-microphone-lines"></i> ElevenLabs</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-music"></i> M&uacute;sica Generativa <span class="badge">Audio</span></h3>
+<div class="platform-grid">
+<a href="https://suno.com" target="_blank" class="platform-link"><i class="fa-solid fa-music"></i> Suno</a>
+<a href="https://flowmusic.ai" target="_blank" class="platform-link"><i class="fa-solid fa-wave-square"></i> Flowmusic</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-person-rays"></i> Avatares &amp; Agentes <span class="badge">Video</span></h3>
+<div class="platform-grid">
+<a href="https://www.heygen.com" target="_blank" class="platform-link"><i class="fa-solid fa-video"></i> HeyGen</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-cube"></i> 3D Generativo <span class="badge">3D</span></h3>
+<div class="platform-grid">
+<a href="https://3d.hunyuan.tencent.com/" target="_blank" class="platform-link"><i class="fa-solid fa-cube"></i> Hunyuan 3D (Tencent)</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- RECURSOS -->
+<section class="resources" id="recursos">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-bookmark"></i> Recursos</div>
+<h2 class="section-title">Recursos y Referencias</h2>
+<p class="section-subtitle">Links y herramientas compartidos en la Clase 6.</p>
+<div class="resource-grid">
+<a href="https://www.elevenlabs.com" target="_blank" class="resource-link"><i class="fa-solid fa-microphone-lines"></i> <span>ElevenLabs &mdash; Voz, clonaci&oacute;n y agentes</span></a>
+<a href="https://www.heygen.com" target="_blank" class="resource-link"><i class="fa-solid fa-person-rays"></i> <span>HeyGen &mdash; Avatares digitales y Lip Sync</span></a>
+<a href="https://suno.com" target="_blank" class="resource-link"><i class="fa-solid fa-music"></i> <span>Suno &mdash; M&uacute;sica generativa desde texto</span></a>
+<a href="https://3d.hunyuan.tencent.com/" target="_blank" class="resource-link"><i class="fa-solid fa-cube"></i> <span>Hunyuan 3D &mdash; Generaci&oacute;n de modelos 3D</span></a>
+</div>
+</div>
+</section>
+
+<!-- PRESENTACIÓN COMPLETA -->
+<section class="presentation" id="presentacion">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-desktop"></i> Slides</div>
+<h2 class="section-title">Presentaci&oacute;n Completa</h2>
+<p class="section-subtitle">Naveg&aacute; las diapositivas de la Clase 6 directamente desde ac&aacute;.</p>
+<div class="pres-wrapper">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSsvwfXguTvrWA5kT4DEdbpBHYV4DJD2CEjlrA231jq4SRQrANLSGwE_cRdIz_YfCjP7xyI4VA1lSim/pubembed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+</div>
+</section>
+
+<!-- CIERRE -->
+<section class="closing" id="cierre">
+<div class="container" style="text-align:center">
+<div class="section-tag"><i class="fa-solid fa-flag-checkered"></i> Cierre</div>
+<h2 class="section-title">Cierre &amp; Pr&oacute;ximos Pasos</h2>
+<div class="closing-grid">
+<div class="closing-block">
+<h3><i class="fa-solid fa-check-circle"></i> Repaso</h3>
+<ul>
+<li>Audio generativo: el mismo paradigma que imagen y video</li>
+<li>Voz = Identidad + Estilo + Narrativa: es direcci&oacute;n actoral</li>
+<li>Cuatro m&eacute;todos: Cat&aacute;logo, Clonaci&oacute;n, Voice Design, Escucha Cr&iacute;tica</li>
+<li>Avatar = presencia visual; Agente = inteligencia operativa</li>
+</ul>
+</div>
+<div class="closing-block">
+<h3><i class="fa-solid fa-clipboard-check"></i> Tarea</h3>
+<ul>
+<li>Generar una voz propia en ElevenLabs (catálogo o Voice Design)</li>
+<li>Crear una pista de audio para el proyecto final con gui&oacute;n y par&aacute;metros de intenci&oacute;n</li>
+<li>Explorar HeyGen: crear un avatar con la locución generada</li>
+</ul>
+</div>
+</div>
+<p style="margin-top:2.5rem;color:var(--gray-light);font-size:.95rem">
+<strong style="color:var(--orange)">Pr&oacute;xima sesi&oacute;n:</strong> Entrega y presentaci&oacute;n de proyectos finales (Clase 7)
+</p>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>ITU &middot; UNCuyo &middot; 2026 &mdash; Inteligencia Artificial: Imagen, Audio y Video &mdash; Docente: <a href="https://www.linkedin.com/in/franerian/" target="_blank">Francisco Erian</a></p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('animate');
+observer.unobserve(entry.target);
+}
+});
+}, { threshold: 0.1 });
+document.querySelectorAll('.concept-card, .roadmap-item, .app-card, .voice-card, .vs-card, .feature-card, .music-card').forEach(el => {
+observer.observe(el);
+});
+</script>
+</body>
+</html>
