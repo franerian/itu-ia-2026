@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITU 2026 - Inteligencia Artificial: Clase 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--orange:#F5A623;
+--orange-dark:#E09000;
+--orange-light:#FFD080;
+--dark:#1a1a1a;
+--darker:#111;
+--gray:#2a2a2a;
+--gray-light:#888;
+--white:#fff;
+--text:#e0e0e0;
+--font-main:'Inter',sans-serif;
+--font-title:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-main);background:var(--darker);color:var(--text);line-height:1.6;width:100%;overflow-x:hidden}
+
+/* HERO */
+.hero{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 50%,#1a1a1a 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23222" width="100" height="100"/><circle fill="%23282828" cx="50" cy="50" r="40"/></svg>') repeat;background-size:100px;opacity:.3}
+.hero::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 70% 50%,rgba(245,166,35,.12) 0%,transparent 60%);pointer-events:none}
+.hero-content{position:relative;z-index:2;width:100%;max-width:1200px;padding:2rem;display:flex;flex-wrap:wrap;align-items:center;gap:3rem}
+.hero-text{flex:1;min-width:320px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);border-radius:50px;padding:.4rem 1rem;font-size:.8rem;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:1.5rem}
+.hero-text h1{font-family:var(--font-title);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;color:var(--white);line-height:1.05;margin-bottom:.5rem}
+.hero-text h1 span{background:linear-gradient(135deg,var(--orange),var(--orange-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-text .subtitle{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--gray-light);margin-bottom:2rem;font-weight:300;max-width:560px}
+.hero-visual{flex:1;min-width:300px;display:flex;justify-content:center;align-items:center}
+.hero-icon-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:340px}
+.hero-icon-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.8rem 1.2rem;text-align:center;transition:all .3s ease}
+.hero-icon-card:hover{border-color:rgba(245,166,35,.3);transform:translateY(-4px)}
+.hero-icon-card i{font-size:2rem;color:var(--orange);margin-bottom:.6rem;display:block}
+.hero-icon-card span{font-size:.8rem;color:var(--gray-light);font-weight:500}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .3s ease;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:var(--dark);box-shadow:0 4px 20px rgba(245,166,35,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(245,166,35,.5)}
+.btn-outline{background:transparent;border:2px solid rgba(255,255,255,.2);color:var(--white)}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+
+/* SECTIONS */
+section{width:100%;padding:5rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);border-radius:50px;padding:.3rem .9rem;font-size:.75rem;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem}
+.section-title{font-family:var(--font-title);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--white);margin-bottom:1rem}
+.section-subtitle{color:var(--gray-light);max-width:700px;margin-bottom:3rem;font-size:1.05rem}
+
+/* ROADMAP */
+.roadmap{background:var(--dark)}
+.roadmap-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.roadmap-col h3{font-family:var(--font-title);font-size:1.3rem;color:var(--orange);margin-bottom:1.2rem;font-weight:700}
+.roadmap-item{display:flex;align-items:flex-start;gap:1rem;padding:1rem;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.05);margin-bottom:.8rem;transition:border-color .3s}
+.roadmap-item:hover{border-color:rgba(245,166,35,.3)}
+.roadmap-num{min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.15);color:var(--orange);font-weight:700;font-size:.85rem;border-radius:8px;flex-shrink:0}
+.roadmap-item p{font-size:.95rem;color:var(--text)}
+
+/* PIPELINE FLOW */
+.pipeline-section{background:var(--darker)}
+.pipeline-flow{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:3rem;padding:1.5rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;justify-content:center}
+.pipeline-step{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);border-radius:30px;font-size:.8rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;white-space:nowrap;transition:all .3s}
+.pipeline-step:hover{background:rgba(245,166,35,.2);transform:translateY(-2px)}
+.pipeline-step .step-num{width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:var(--orange);color:var(--dark);border-radius:50%;font-size:.7rem;font-weight:900}
+.pipeline-arrow{color:rgba(245,166,35,.4);font-size:1rem;flex-shrink:0}
+
+/* STAGE CARDS */
+.stages-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem}
+.stage-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:2rem;transition:all .3s;position:relative;overflow:hidden}
+.stage-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--orange-light));opacity:0;transition:opacity .3s}
+.stage-card:hover{border-color:rgba(245,166,35,.2);transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.stage-card:hover::before{opacity:1}
+.stage-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+.stage-num{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.2);color:var(--orange);font-weight:900;font-size:1rem;border-radius:12px;flex-shrink:0;font-family:var(--font-title)}
+.stage-title-wrap{}
+.stage-card h3{font-family:var(--font-title);color:var(--white);font-size:1.15rem;font-weight:700;line-height:1.2}
+.stage-card .stage-sub{font-size:.75rem;color:var(--orange);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:.2rem}
+.stage-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.stage-tag-item{padding:.25rem .7rem;background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.15);border-radius:20px;font-size:.72rem;color:var(--orange-light);font-weight:600}
+.stage-desc{color:var(--gray-light);font-size:.88rem;line-height:1.75;border-top:1px solid rgba(255,255,255,.04);padding-top:1rem;margin-top:.8rem}
+
+/* PRINCIPLES */
+.principles{background:var(--dark)}
+.principles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.principle-card{text-align:center;padding:2.5rem 2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;transition:all .3s;position:relative;overflow:hidden}
+.principle-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:0;transition:opacity .3s}
+.principle-card:hover{border-color:rgba(245,166,35,.25);transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.principle-card:hover::after{opacity:1}
+.principle-icon{width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);border-radius:50%;margin:0 auto 1.5rem;font-size:1.6rem;color:var(--orange)}
+.principle-card h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;font-weight:700;margin-bottom:.8rem}
+.principle-card p{color:var(--gray-light);font-size:.88rem;line-height:1.7}
+
+/* CONCEPTS */
+.concepts{background:var(--darker)}
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
+.concept-card{background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:2rem;transition:all .3s ease}
+.concept-card:hover{transform:translateY(-4px);border-color:rgba(245,166,35,.2);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.concept-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.12);border-radius:12px;color:var(--orange);font-size:1.3rem;margin-bottom:1.2rem}
+.concept-card h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;margin-bottom:.8rem;font-weight:700}
+.concept-card p{color:var(--gray-light);font-size:.93rem;line-height:1.7}
+
+/* RESOURCES */
+.resources{background:var(--darker)}
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+.resource-link{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;text-decoration:none;color:var(--text);transition:all .3s}
+.resource-link:hover{border-color:rgba(245,166,35,.3);color:var(--white);background:rgba(245,166,35,.05)}
+.resource-link i{color:var(--orange);font-size:1.2rem;min-width:24px;text-align:center}
+.resource-link span{font-size:.9rem}
+
+/* PLATFORMS */
+.platforms{background:var(--dark)}
+.platform-section{margin-bottom:2.5rem}
+.platform-section h3{font-family:var(--font-title);color:var(--white);font-size:1.2rem;margin-bottom:1rem;font-weight:700;display:flex;align-items:center;gap:.6rem}
+.platform-section h3 .badge{background:rgba(245,166,35,.15);color:var(--orange);padding:.2rem .7rem;border-radius:20px;font-size:.7rem;font-weight:600;text-transform:uppercase}
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.platform-link{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;text-decoration:none;color:var(--text);transition:all .3s;font-size:.9rem}
+.platform-link:hover{border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.05);color:var(--white)}
+.platform-link i{color:var(--orange);font-size:1.1rem;min-width:20px;text-align:center}
+
+/* PRESENTATION */
+.presentation{background:var(--darker)}
+.pres-wrapper{position:relative;width:100%;padding-bottom:58.5%;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(245,166,35,.05)}
+.pres-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+/* QUOTE */
+.quote-block{background:rgba(245,166,35,.05);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:1.5rem 2rem;margin:2rem 0;font-style:italic;color:var(--text);font-size:.95rem;line-height:1.8}
+.quote-block .quote-source{font-style:normal;font-size:.8rem;color:var(--orange);margin-top:.8rem;display:block}
+
+/* CLOSING */
+.closing{background:linear-gradient(135deg,var(--dark),var(--darker));text-align:center}
+.closing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;text-align:left;margin-top:2rem;max-width:900px;margin-left:auto;margin-right:auto}
+.closing-block{padding:2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px}
+.closing-block h3{font-family:var(--font-title);color:var(--orange);font-size:1.1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.closing-block ul{list-style:none;padding:0}
+.closing-block li{padding:.4rem 0;font-size:.9rem;color:var(--text);display:flex;align-items:flex-start;gap:.5rem}
+.closing-block li::before{content:'\2192';color:var(--orange);font-weight:700}
+
+/* FOOTER */
+.footer{background:var(--darker);border-top:1px solid rgba(255,255,255,.06);padding:2rem;text-align:center}
+.footer p{color:var(--gray-light);font-size:.8rem}
+.footer a{color:var(--orange);text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.roadmap-grid,.closing-grid,.principles-grid{grid-template-columns:1fr}
+.hero-content{flex-direction:column;text-align:center}
+.hero-cta{justify-content:center}
+.pipeline-flow{gap:.4rem}
+.pipeline-step{font-size:.7rem;padding:.4rem .8rem}
+}
+@media(max-width:480px){
+section{padding:3rem 1rem}
+.hero-icon-grid{grid-template-columns:1fr 1fr;gap:.8rem;max-width:280px}
+.principles-grid{grid-template-columns:1fr}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.animate{animation:fadeUp .6s ease forwards;opacity:0}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--darker)}
+::-webkit-scrollbar-thumb{background:var(--gray);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gray-light)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+<div class="hero-text">
+<div class="hero-badge"><i class="fa-solid fa-microchip"></i> ITU &middot; UNCuyo &middot; 2026</div>
+<h1>Pipeline<br><span>de Producci&oacute;n</span></h1>
+<p class="subtitle">Clase 7: Del concepto a la entrega. Inspiraci&oacute;n, gui&oacute;n, escenas, personajes, voces, escenarios, audio y edici&oacute;n con IA.</p>
+<div class="hero-cta">
+<a href="#presentacion" class="btn btn-primary"><i class="fa-solid fa-play"></i> Ver Presentaci&oacute;n</a>
+<a href="#pipeline" class="btn btn-outline"><i class="fa-solid fa-diagram-project"></i> Ver Pipeline</a>
+</div>
+</div>
+<div class="hero-visual">
+<div class="hero-icon-grid">
+<div class="hero-icon-card"><i class="fa-solid fa-lightbulb"></i><span>Inspiraci&oacute;n</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-pen-nib"></i><span>Gui&oacute;n</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-person-rays"></i><span>Personajes</span></div>
+<div class="hero-icon-card"><i class="fa-solid fa-scissors"></i><span>Edici&oacute;n</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PRESENTACIÓN HERO -->
+<section class="presentation" id="presentacion-hero" style="padding:3rem 2rem">
+<div class="container">
+<div class="pres-wrapper">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQNny68DidlTs0iS47pV5uLxcanOnwKVDs4Y0-_PmSzZS0k_n1y4V8WVx7un9YjGVkSfs2l5lMhVY9m/pubembed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+</div>
+</section>
+
+<!-- HOJA DE RUTA -->
+<section class="roadmap" id="hoja-de-ruta">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-route"></i> Programa</div>
+<h2 class="section-title">Hoja de Ruta &mdash; Clase 7</h2>
+<p class="section-subtitle">El pipeline creativo completo para producci&oacute;n audiovisual con IA.</p>
+<div class="roadmap-grid">
+<div class="roadmap-col">
+<h3><i class="fa-solid fa-1"></i> Primera Hora</h3>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-lightbulb"></i></div><p><strong>Inspiraci&oacute;n:</strong> Referencias como input creativo. No copiar, traducir. Construcci&oacute;n desde el criterio.</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-pen-nib"></i></div><p><strong>Gui&oacute;n:</strong> Base del sistema. Escribir para IA &ne; escritura tradicional. De la sinopsis al di&aacute;logo.</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-film"></i></div><p><strong>Escenas &amp; Personajes:</strong> Unidad de generaci&oacute;n, coherencia visual e identidad consistente.</p></div>
+</div>
+<div class="roadmap-col">
+<h3><i class="fa-solid fa-2"></i> Segunda Hora</h3>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-microphone"></i></div><p><strong>Voces &amp; Audio:</strong> Capa emocional que define la interpretaci&oacute;n y une todo el sistema.</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-map"></i></div><p><strong>Escenarios:</strong> Contexto narrativo, refuerzo emocional y coherencia espacial.</p></div>
+<div class="roadmap-item"><div class="roadmap-num"><i class="fa-solid fa-scissors"></i></div><p><strong>Edici&oacute;n:</strong> Donde todo se une y se redefine. Ritmo narrativo y correcci&oacute;n de inconsistencias.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- EL PIPELINE VISUAL -->
+<section class="pipeline-section" id="pipeline">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-diagram-project"></i> Workflow</div>
+<h2 class="section-title">El Pipeline Creativo</h2>
+<p class="section-subtitle">Un sistema modular: cada etapa es una unidad generrable y conectable con las dem&aacute;s.</p>
+
+<div class="pipeline-flow">
+<div class="pipeline-step"><span class="step-num">1</span><i class="fa-solid fa-lightbulb"></i> Inspiraci&oacute;n</div>
+<span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+<div class="pipeline-step"><span class="step-num">2</span><i class="fa-solid fa-pen-nib"></i> Gui&oacute;n</div>
+<span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+<div class="pipeline-step"><span class="step-num">3</span><i class="fa-solid fa-film"></i> Escenas</div>
+<span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+<div class="pipeline-step"><span class="step-num">4</span><i class="fa-solid fa-person-rays"></i> Personajes</div>
+<span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+<div class="pipeline-step"><span class="step-num">5</span><i class="fa-solid fa-microphone"></i> Voces</div>
+<span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+<div class="pipeline-step"><span class="step-num">6</span><i class="fa-solid fa-map"></i> Escenarios</div>
+<span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+<div class="pipeline-step"><span class="step-num">7</span><i class="fa-solid fa-music"></i> Audio</div>
+<span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+<div class="pipeline-step"><span class="step-num">8</span><i class="fa-solid fa-scissors"></i> Edici&oacute;n</div>
+</div>
+
+<div class="stages-grid">
+
+<div class="stage-card">
+<div class="stage-header">
+<div class="stage-num">01</div>
+<div class="stage-title-wrap">
+<h3>Inspiraci&oacute;n</h3>
+<div class="stage-sub">Est&eacute;tica + Ritmo + Tono Narrativo</div>
+</div>
+</div>
+<div class="stage-tags">
+<span class="stage-tag-item">Referencias como input</span>
+<span class="stage-tag-item">No copiar, traducir</span>
+<span class="stage-tag-item">Criterio propio</span>
+</div>
+<p class="stage-desc">La inspiraci&oacute;n no es buscar &ldquo;qu&eacute; hacer&rdquo;, sino definir &ldquo;c&oacute;mo se siente&rdquo; lo que quer&eacute;s crear. Las referencias se transforman en prompts visuales y conceptuales que despu&eacute;s traducimos en decisiones concretas.</p>
+</div>
+
+<div class="stage-card">
+<div class="stage-header">
+<div class="stage-num">02</div>
+<div class="stage-title-wrap">
+<h3>Gui&oacute;n</h3>
+<div class="stage-sub">Escena + Clip + Audio</div>
+</div>
+</div>
+<div class="stage-tags">
+<span class="stage-tag-item">Base del sistema</span>
+<span class="stage-tag-item">Sinopsis al di&aacute;logo</span>
+<span class="stage-tag-item">Pensado para IA</span>
+</div>
+<p class="stage-desc">El gui&oacute;n es contenido pero tambi&eacute;n una estructura pensada para ser interpretada por modelos de generaci&oacute;n. Tiene que ser claro, modular y funcional a la generaci&oacute;n con las herramientas disponibles. Escribir para IA &ne; escritura tradicional.</p>
+</div>
+
+<div class="stage-card">
+<div class="stage-header">
+<div class="stage-num">03</div>
+<div class="stage-title-wrap">
+<h3>Escenas</h3>
+<div class="stage-sub">Estilo Visual + Iluminaci&oacute;n + Intenci&oacute;n</div>
+</div>
+</div>
+<div class="stage-tags">
+<span class="stage-tag-item">Unidad de generaci&oacute;n</span>
+<span class="stage-tag-item">Sistema modular</span>
+<span class="stage-tag-item">Coherencia visual</span>
+</div>
+<p class="stage-desc">Pensar en escenas permite dividir el proyecto en partes generables. Cada escena puede ser un prompt o muchos prompts distintos, pero tiene que mantener coherencia y entenderse como un todo. Del still al video, de los assets a la acci&oacute;n.</p>
+</div>
+
+<div class="stage-card">
+<div class="stage-header">
+<div class="stage-num">04</div>
+<div class="stage-title-wrap">
+<h3>Personajes</h3>
+<div class="stage-sub">Visual + Voz + Comportamiento</div>
+</div>
+</div>
+<div class="stage-tags">
+<span class="stage-tag-item">Identidad consistente</span>
+<span class="stage-tag-item">Gestualidad</span>
+<span class="stage-tag-item">Asset documentado</span>
+</div>
+<p class="stage-desc">Un personaje es una combinaci&oacute;n de elementos: apariencia, voz, forma de actuar. Cuanto m&aacute;s consistente es, m&aacute;s cre&iacute;ble resulta. Para eso documentamos al personaje como un &ldquo;asset&rdquo;: edad, tono, estilo visual, vestuario, comportamiento.</p>
+</div>
+
+<div class="stage-card">
+<div class="stage-header">
+<div class="stage-num">05</div>
+<div class="stage-title-wrap">
+<h3>Voces</h3>
+<div class="stage-sub">Capa emocional &mdash; Define interpretaci&oacute;n</div>
+</div>
+</div>
+<div class="stage-tags">
+<span class="stage-tag-item">TTS generativo</span>
+<span class="stage-tag-item">Une el sistema</span>
+<span class="stage-tag-item">M&uacute;ltiples versiones</span>
+</div>
+<p class="stage-desc">El audio define c&oacute;mo se interpreta todo lo que vemos. Una misma escena cambia completamente seg&uacute;n la voz o la m&uacute;sica. Pob&aacute; m&aacute;s de una versi&oacute;n de audio para el mismo video: podr&iacute;as &ldquo;salvar&rdquo; alguna escena sin tener que rehacerla.</p>
+</div>
+
+<div class="stage-card">
+<div class="stage-header">
+<div class="stage-num">06</div>
+<div class="stage-title-wrap">
+<h3>Escenarios</h3>
+<div class="stage-sub">Contexto narrativo &mdash; Coherencia espacial</div>
+</div>
+</div>
+<div class="stage-tags">
+<span class="stage-tag-item">Refuerza emoci&oacute;n</span>
+<span class="stage-tag-item">Define clima</span>
+<span class="stage-tag-item">Escala y sensaci&oacute;n</span>
+</div>
+<p class="stage-desc">El escenario es parte de la historia y define el clima, la escala y la sensaci&oacute;n del contenido. Dar contexto y a la vez dejar espacio al modelo es un buen camino. Despu&eacute;s editamos lo que creamos necesario.</p>
+</div>
+
+<div class="stage-card">
+<div class="stage-header">
+<div class="stage-num">07</div>
+<div class="stage-title-wrap">
+<h3>Audio</h3>
+<div class="stage-sub">Capa emocional final del sistema</div>
+</div>
+</div>
+<div class="stage-tags">
+<span class="stage-tag-item">Voz en off</span>
+<span class="stage-tag-item">M&uacute;sica generativa</span>
+<span class="stage-tag-item">Dise&ntilde;o sonoro</span>
+</div>
+<p class="stage-desc">El audio combina voz, m&uacute;sica y dise&ntilde;o sonoro. La capa de audio es la que une todos los elementos visuales y les da sentido emocional. Es el &uacute;ltimo paso antes de la edici&oacute;n y puede redefinir una escena entera.</p>
+</div>
+
+<div class="stage-card">
+<div class="stage-header">
+<div class="stage-num">08</div>
+<div class="stage-title-wrap">
+<h3>Edici&oacute;n</h3>
+<div class="stage-sub">Donde todo se une y se redefine</div>
+</div>
+</div>
+<div class="stage-tags">
+<span class="stage-tag-item">Ritmo narrativo</span>
+<span class="stage-tag-item">Correcci&oacute;n de inconsistencias</span>
+<span class="stage-tag-item">Unidad final</span>
+</div>
+<p class="stage-desc">La edici&oacute;n es el momento donde el contenido deja de ser piezas sueltas y se convierte en unidad. Aqu&iacute; se define el ritmo narrativo, se corrigen las inconsistencias visuales y se integra todo el material generado en una pieza coherente.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- UN SISTEMA PROPIO -->
+<section class="principles" id="sistema-propio">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-gear"></i> Filosof&iacute;a</div>
+<h2 class="section-title">Un Sistema Propio</h2>
+<p class="section-subtitle">El objetivo no es solo generar contenido, sino construir un flujo de trabajo replicable y mejorable.</p>
+<div class="principles-grid">
+<div class="principle-card">
+<div class="principle-icon"><i class="fa-solid fa-brain"></i></div>
+<h3>Pensar Antes de Generar</h3>
+<p>La velocidad de la IA no significa saltear el proceso de pensamiento. La claridad del concepto y la estructura determinan la calidad del resultado. El modelo responde a lo que le das.</p>
+</div>
+<div class="principle-card">
+<div class="principle-icon"><i class="fa-solid fa-layer-group"></i></div>
+<h3>Organizaci&oacute;n es Calidad</h3>
+<p>Un pipeline ordenado es un pipeline controlable. Documentar assets, organizar referencias y estructurar el gui&oacute;n no es burocracia: es lo que permite iterar sin perder lo que ya funciona.</p>
+</div>
+<div class="principle-card">
+<div class="principle-icon"><i class="fa-solid fa-rotate"></i></div>
+<h3>Replicable y Mejorable</h3>
+<p>El sistema que constru&iacute;s tiene que poder repetirse y perfeccionarse. Cada proyecto es un aprendizaje que mejora el siguiente. El valor est&aacute; en el proceso, no solo en el resultado puntual.</p>
+</div>
+</div>
+<div class="quote-block" style="margin-top:2.5rem">
+<strong style="color:var(--orange)">Pensar en escenas</strong> permite dividir el proyecto en partes generables. No es posible describir todo pero si utilizamos los modelos a nuestro favor sabemos que dar contexto y a la vez dejar espacio al modelo es un buen camino.
+</div>
+</div>
+</section>
+
+<!-- PLATAFORMAS -->
+<section class="platforms" id="plataformas">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-toolbox"></i> Herramientas</div>
+<h2 class="section-title">Plataformas y Herramientas</h2>
+<p class="section-subtitle">Ecosistema de herramientas para cada etapa del pipeline de producci&oacute;n.</p>
+<div class="platform-section">
+<h3><i class="fa-solid fa-video"></i> Edici&oacute;n &amp; Producci&oacute;n <span class="badge">Video</span></h3>
+<div class="platform-grid">
+<a href="https://openreel.video/" target="_blank" class="platform-link"><i class="fa-solid fa-clapperboard"></i> OpenReel</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-image"></i> Generaci&oacute;n de Imagen <span class="badge">Imagen</span></h3>
+<div class="platform-grid">
+<a href="https://playground.bfl.ai/image/generate" target="_blank" class="platform-link"><i class="fa-solid fa-wand-sparkles"></i> BFL Playground</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-microphone"></i> Voz &amp; Audio <span class="badge">Audio</span></h3>
+<div class="platform-grid">
+<a href="https://www.elevenlabs.com" target="_blank" class="platform-link"><i class="fa-solid fa-microphone-lines"></i> ElevenLabs</a>
+<a href="https://suno.com" target="_blank" class="platform-link"><i class="fa-solid fa-music"></i> Suno</a>
+</div>
+</div>
+<div class="platform-section">
+<h3><i class="fa-solid fa-person-rays"></i> Avatares &amp; Agentes <span class="badge">Avatar</span></h3>
+<div class="platform-grid">
+<a href="https://www.heygen.com" target="_blank" class="platform-link"><i class="fa-solid fa-video"></i> HeyGen</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- RECURSOS -->
+<section class="resources" id="recursos">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-bookmark"></i> Recursos</div>
+<h2 class="section-title">Recursos y Referencias</h2>
+<p class="section-subtitle">Links y herramientas compartidos en la Clase 7.</p>
+<div class="resource-grid">
+<a href="https://openreel.video/" target="_blank" class="resource-link"><i class="fa-solid fa-clapperboard"></i> <span>OpenReel &mdash; Edici&oacute;n y producci&oacute;n de video</span></a>
+<a href="https://playground.bfl.ai/image/generate" target="_blank" class="resource-link"><i class="fa-solid fa-wand-sparkles"></i> <span>BFL Playground &mdash; Generaci&oacute;n de imagen</span></a>
+<a href="https://www.elevenlabs.com" target="_blank" class="resource-link"><i class="fa-solid fa-microphone-lines"></i> <span>ElevenLabs &mdash; Voz, clonaci&oacute;n y agentes</span></a>
+<a href="https://www.heygen.com" target="_blank" class="resource-link"><i class="fa-solid fa-person-rays"></i> <span>HeyGen &mdash; Avatares y agentes de video</span></a>
+<a href="https://suno.com" target="_blank" class="resource-link"><i class="fa-solid fa-music"></i> <span>Suno &mdash; M&uacute;sica generativa desde texto</span></a>
+<a href="https://www.instagram.com/p/DSOd8KrCMod/" target="_blank" class="resource-link"><i class="fa-brands fa-instagram"></i> <span>Referencia visual &mdash; Instagram</span></a>
+</div>
+</div>
+</section>
+
+<!-- PRESENTACIÓN COMPLETA -->
+<section class="presentation" id="presentacion">
+<div class="container">
+<div class="section-tag"><i class="fa-solid fa-desktop"></i> Slides</div>
+<h2 class="section-title">Presentaci&oacute;n Completa</h2>
+<p class="section-subtitle">Naveg&aacute; las diapositivas de la Clase 7 directamente desde ac&aacute;.</p>
+<div class="pres-wrapper">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQNny68DidlTs0iS47pV5uLxcanOnwKVDs4Y0-_PmSzZS0k_n1y4V8WVx7un9YjGVkSfs2l5lMhVY9m/pubembed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+</div>
+</section>
+
+<!-- CIERRE -->
+<section class="closing" id="cierre">
+<div class="container" style="text-align:center">
+<div class="section-tag"><i class="fa-solid fa-flag-checkered"></i> Cierre</div>
+<h2 class="section-title">Cierre &amp; Pr&oacute;ximos Pasos</h2>
+<div class="closing-grid">
+<div class="closing-block">
+<h3><i class="fa-solid fa-check-circle"></i> Repaso</h3>
+<ul>
+<li>El pipeline creativo: 8 etapas modulares y conectadas</li>
+<li>Inspiraci&oacute;n = definir c&oacute;mo se siente, no solo qu&eacute; hacer</li>
+<li>Personaje = asset documentado: apariencia, voz y comportamiento</li>
+<li>Edici&oacute;n = donde todo deja de ser piezas y se convierte en unidad</li>
+</ul>
+</div>
+<div class="closing-block">
+<h3><i class="fa-solid fa-clipboard-check"></i> Tarea</h3>
+<ul>
+<li>Documentar el pipeline de tu proyecto final por etapas</li>
+<li>Definir al menos un personaje como asset completo (visual + voz)</li>
+<li>Generar al menos una escena con audio sincronizado</li>
+</ul>
+</div>
+</div>
+<p style="margin-top:2.5rem;color:var(--gray-light);font-size:.95rem">
+<strong style="color:var(--orange)">Objetivo:</strong> Pensar antes de generar. Organizaci&oacute;n es calidad. Un sistema replicable y mejorable.
+</p>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>ITU &middot; UNCuyo &middot; 2026 &mdash; Inteligencia Artificial: Imagen, Audio y Video &mdash; Docente: <a href="https://www.linkedin.com/in/franerian/" target="_blank">Francisco Erian</a></p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('animate');
+observer.unobserve(entry.target);
+}
+});
+}, { threshold: 0.1 });
+document.querySelectorAll('.stage-card, .principle-card, .roadmap-item, .concept-card, .pipeline-step').forEach(el => {
+observer.observe(el);
+});
+</script>
+</body>
+</html>
